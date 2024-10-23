@@ -10,6 +10,7 @@ import { SignupComponent } from './ticketing/components/signup/signup.component'
 
 // PrimeNG imports
 import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MenubarModule } from 'primeng/menubar';
 import { SignupCustomerComponent } from './ticketing/components/signup-customer/signup-customer.component';
@@ -26,6 +27,7 @@ import { MessageService } from 'primeng/api';
     ButtonModule,
     ReactiveFormsModule,
     MenubarModule,
+    ToastModule,
   ],
   providers: [MessageService],
   bootstrap: [AppComponent],

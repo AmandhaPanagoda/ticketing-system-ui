@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth/auth.service';
   templateUrl: './signup-customer.component.html',
   styleUrl: './signup-customer.component.scss',
 })
-export class SignupCustomerComponent {
+export class SignupCustomerComponent implements OnInit {
   validateForm!: FormGroup;
 
   constructor(
@@ -20,18 +20,47 @@ export class SignupCustomerComponent {
   ) {}
 
   ngOnInit() {
-    this.validateForm = this.fb.group({
-      username: [null, [Validators.required]],
-      email: [null, [Validators.email, Validators.required]],
-      password: [null, [Validators.required]],
-      confirmPassword: [null, [Validators.required]],
-      phoneNumber: [null],
-      firstName: [null],
-      lastName: [null],
-    });
+    this.validateForm = this.fb.group(
+      {
+        username: [null, [Validators.required]],
+        email: [null, [Validators.email, Validators.required]],
+        password: [null, [Validators.required, Validators.minLength(6)]],
+        confirmPassword: [null, [Validators.required]],
+        phoneNumber: [null],
+        firstName: [null],
+        lastName: [null],
+      },
+      {
+        validator: this.passwordMatchValidator,
+      }
+    );
+  }
+
+  passwordMatchValidator(g: FormGroup) {
+    const password = g.get('password');
+    const confirmPassword = g.get('confirmPassword');
+    return password && confirmPassword && password.value === confirmPassword.value
+      ? null
+      : { mismatch: true };
   }
 
   submitForm(): void {
+    if (this.validateForm.invalid) {
+      Object.values(this.validateForm.controls).forEach(control => {
+        if (control.invalid) {
+          control.markAsDirty();
+          control.updateValueAndValidity({ onlySelf: true });
+        }
+      });
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Validation Error',
+        detail: 'Please fill in all required fields correctly.',
+        life: 3000,
+      });
+      return;
+    }
+
     this.authService.registerCustomer(this.validateForm.value).subscribe({
       next: res => {
         this.messageService.add({
