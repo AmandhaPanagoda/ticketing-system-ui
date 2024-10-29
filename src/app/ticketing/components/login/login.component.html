@@ -1,1 +1,58 @@
-<p>login works!</p>
+<div class="login-container">
+  <div class="login-card">
+    <h2>Login</h2>
+
+    <form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+      <div class="form-group">
+        <label for="username">Email</label>
+        <input
+          type="email"
+          id="username"
+          formControlName="username"
+          pInputText
+          placeholder="Enter your email"
+          [ngClass]="{
+            'ng-invalid ng-dirty':
+              validateForm.get('username')?.touched && validateForm.get('username')?.invalid
+          }"
+        />
+        <small
+          class="error-message"
+          *ngIf="validateForm.get('username')?.touched && validateForm.get('username')?.invalid"
+        >
+          Email is required
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          pInputText
+          placeholder="Enter your password"
+          [ngClass]="{
+            'ng-invalid ng-dirty':
+              validateForm.get('password')?.touched && validateForm.get('password')?.invalid
+          }"
+        />
+        <small
+          class="error-message"
+          *ngIf="validateForm.get('password')?.touched && validateForm.get('password')?.invalid"
+        >
+          Password is required
+        </small>
+      </div>
+
+      <div class="button-group">
+        <button pButton type="submit" label="Login" [disabled]="!validateForm.valid"></button>
+
+        <p class="register-text">
+          Don't have an account?
+          <a routerLink="/register">Register here</a>
+        </p>
+      </div>
+    </form>
+  </div>
+</div>
