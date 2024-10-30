@@ -1,14 +1,49 @@
-<p-menubar>
-  <ng-template pTemplate="start">
-    <h1>Ticketing System</h1>
-  </ng-template>
-  <ng-template pTemplate="end">
-    <div>
-      <a pButton label="Home" routerLink="/home" class="p-button-text"></a>
-      <a pButton label="Register" routerLink="/register" class="p-button-text"></a>
-      <a pButton label="Login" routerLink="/login" class="p-button-text"></a>
-    </div>
-  </ng-template>
-</p-menubar>
+<div *ngIf="!isCustomerLoggedIn && !isVendorLoggedIn">
+  <p-menubar>
+    <ng-template pTemplate="start">
+      <h1>NEX Ticketing</h1>
+    </ng-template>
+    <ng-template pTemplate="end">
+      <div>
+        <a pButton label="Home" routerLink="/home" class="p-button-text"></a>
+        <a pButton label="Register" routerLink="/register" class="p-button-text"></a>
+        <a pButton label="Login" routerLink="/login" class="p-button-text"></a>
+      </div>
+    </ng-template>
+  </p-menubar>
+</div>
+
+<div *ngIf="isCustomerLoggedIn">
+  <p-menubar>
+    <ng-template pTemplate="start">
+      <h1>NEX Ticketing</h1>
+    </ng-template>
+    <ng-template pTemplate="end">
+      <div>
+        <a pButton label="Dashboard" routerLink="/customer/dashboard" class="p-button-text"></a>
+        <a pButton label="My Tickets" routerLink="/customer/tickets" class="p-button-text"></a>
+        <a pButton label="Logout" (click)="logout()" class="p-button-text"></a>
+      </div>
+    </ng-template>
+  </p-menubar>
+</div>
+
+<div *ngIf="isVendorLoggedIn">
+  <p-menubar>
+    <ng-template pTemplate="start">
+      <h1>NEX Ticketing</h1>
+    </ng-template>
+    <ng-template pTemplate="end">
+      <div>
+        <a pButton label="Dashboard" routerLink="/vendor/dashboard" class="p-button-text"></a>
+        <a pButton label="Ticket" routerLink="/vendor/ticket" class="p-button-text"></a>
+        <a pButton label="My Tickets" routerLink="/vendor/tickets" class="p-button-text"></a>
+        <a pButton label="Logout" (click)="logout()" class="p-button-text"></a>
+      </div>
+    </ng-template>
+  </p-menubar>
+</div>
+
 <p-toast></p-toast>
+
 <router-outlet></router-outlet>

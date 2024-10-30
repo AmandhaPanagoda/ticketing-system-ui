@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthService } from '../../services/auth/auth.service';
+import { UserStorageService } from '../../services/storage/user-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -37,7 +38,11 @@ export class LoginComponent {
             detail: 'Login successful',
             life: 3000,
           });
-          this.router.navigate(['/']);
+          if (UserStorageService.isCustomerLoggedIn()) {
+            this.router.navigateByUrl('customer/dashboard');
+          } else if (UserStorageService.isVendorLoggedIn()) {
+            this.router.navigateByUrl('vendor/dashboard');
+          }
         },
         error: error => {
           this.messageService.add({

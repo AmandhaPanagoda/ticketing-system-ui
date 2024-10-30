@@ -1,1 +1,35 @@
-<p>signup works!</p>
+<div class="surface-ground px-4 py-8 md:px-6 lg:px-8">
+  <div class="text-center">
+    <div class="mb-3">
+      <i class="pi pi-ticket text-6xl text-primary"></i>
+    </div>
+    <div class="text-900 font-bold text-5xl mb-3">Welcome to NEX Ticketing</div>
+    <div class="text-700 text-xl mb-5">
+      Your one-stop destination for seamless ticket management
+    </div>
+    <div class="text-700 line-height-3 mb-6">
+      Whether you're looking to sell tickets for your events or purchase tickets for amazing
+      experiences, we've got you covered. Choose your journey below.
+    </div>
+
+    <div class="flex flex-column md:flex-row gap-4 justify-content-center">
+      <button
+        pButton
+        pRipple
+        label="I Want to Buy Tickets"
+        icon="pi pi-shopping-cart"
+        class="p-button-lg p-button-primary"
+        [routerLink]="['/register_customer']"
+      ></button>
+
+      <button
+        pButton
+        pRipple
+        label="I Want to Sell Tickets"
+        icon="pi pi-ticket"
+        class="p-button-lg p-button-secondary"
+        [routerLink]="['/register_vendor']"
+      ></button>
+    </div>
+  </div>
+</div>
