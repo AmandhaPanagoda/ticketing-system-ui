@@ -31,7 +31,7 @@ export class UserStorageService {
   static getUserId(): string {
     const user = this.getUser();
     if (user) {
-      return user.id;
+      return user.userId;
     }
     return '';
   }

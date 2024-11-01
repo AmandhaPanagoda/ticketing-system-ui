@@ -1,0 +1,58 @@
+<div class="container p-4">
+  <h1 class="mb-4">Create Ticket</h1>
+
+  <form [formGroup]="validateForm" (ngSubmit)="addTicket()">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input
+        id="title"
+        type="text"
+        class="form-control"
+        formControlName="title"
+        placeholder="Enter ticket title"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea
+        id="description"
+        class="form-control"
+        formControlName="description"
+        rows="4"
+        placeholder="Enter ticket description"
+      ></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="price" class="form-label">Price</label>
+      <input
+        id="price"
+        type="number"
+        class="form-control"
+        formControlName="price"
+        placeholder="Enter ticket price"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="image" class="form-label">Upload Image</label>
+      <input
+        id="image"
+        type="file"
+        class="form-control"
+        accept="image/x-png,image/jpeg"
+        (change)="onFileSelected($event)"
+      />
+
+      <!-- Image Preview -->
+      <div *ngIf="imagePreview" class="mt-2">
+        <img [src]="imagePreview" alt="Preview" style="max-width: 200px" />
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!validateForm.valid">
+      Create Ticket
+    </button>
+  </form>
+</div>
