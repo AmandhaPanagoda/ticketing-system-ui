@@ -6,10 +6,18 @@
 /out-tsc
 /bazel-out
 
-# Node
+# Dependencies
 /node_modules
-npm-debug.log
-yarn-error.log
+package-lock.json
+yarn.lock
+.pnpm-lock.yaml
+
+# Logs and debugging
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+debug.log
+*.log
 
 # IDEs and editors
 .idea/
@@ -28,7 +36,7 @@ yarn-error.log
 !.vscode/extensions.json
 .history/*
 
-# Miscellaneous
+# Angular specific
 /.angular/cache
 .sass-cache/
 /connect.lock
@@ -38,6 +46,27 @@ testem.log
 /typings
 .prettierrc
 
+# Environment files
+/src/environments/*.js
+/src/environments/*.js.map
+.env
+.env.*
+
+# Testing
+/coverage
+/.nyc_output
+/cypress/videos/
+/cypress/screenshots/
+
 # System files
 .DS_Store
 Thumbs.db
+.directory
+desktop.ini
+
+
+*.js.map
+*.css.map
+.angular
+
+.editorconfig
