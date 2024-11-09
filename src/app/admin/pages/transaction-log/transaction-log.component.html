@@ -1,4 +1,8 @@
 <div class="transaction-logs">
+  <div class="chart-container">
+    <canvas baseChart [data]="lineChartData" [options]="lineChartOptions" [type]="'line'"> </canvas>
+  </div>
+
   <h2>Transaction Logs</h2>
   <div class="log-container">
     <table class="table">
