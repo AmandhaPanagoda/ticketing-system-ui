@@ -49,4 +49,35 @@ export class AdminService {
       headers,
     });
   }
+
+  getSystemStatus(): Observable<{ running: boolean }> {
+    const token = UserStorageService.getToken();
+
+    if (!token) {
+      return throwError(() => new Error('User not authenticated'));
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.get<{ running: boolean }>(`${this.baseUrl}/system/status`, { headers });
+  }
+
+  updateSystemStatus(start: boolean): Observable<string> {
+    const token = UserStorageService.getToken();
+
+    if (!token) {
+      return throwError(() => new Error('User not authenticated'));
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.post(`${this.baseUrl}/system`, start, {
+      headers,
+      responseType: 'text',
+    });
+  }
 }
