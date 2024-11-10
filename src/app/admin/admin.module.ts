@@ -10,6 +10,8 @@ import { NgChartsModule } from 'ng2-charts';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { TooltipModule } from 'primeng/tooltip';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 
 @NgModule({
   declarations: [AdminComponent, AdminPanelComponent, TransactionLogComponent],
@@ -20,7 +22,8 @@ import { TooltipModule } from 'primeng/tooltip';
     NgChartsModule,
     ToastModule,
     TooltipModule,
+    ConfirmDialogModule,
   ],
-  providers: [AdminWebsocketService, MessageService],
+  providers: [AdminWebsocketService, MessageService, ConfirmationService],
 })
 export class AdminModule {}
