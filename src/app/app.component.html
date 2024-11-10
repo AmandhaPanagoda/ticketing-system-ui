@@ -1,4 +1,4 @@
-<div *ngIf="!isCustomerLoggedIn && !isVendorLoggedIn">
+<div *ngIf="!isCustomerLoggedIn && !isVendorLoggedIn && !isAdminLoggedIn">
   <p-menubar>
     <ng-template pTemplate="start">
       <h1>NEX Ticketing</h1>
@@ -36,8 +36,28 @@
     <ng-template pTemplate="end">
       <div>
         <a pButton label="Dashboard" routerLink="/vendor/dashboard" class="p-button-text"></a>
-        <a pButton label="Ticket" routerLink="/vendor/ticket" class="p-button-text"></a>
+        <a pButton label="Create Ticket" routerLink="/vendor/ticket" class="p-button-text"></a>
         <a pButton label="My Tickets" routerLink="/vendor/tickets" class="p-button-text"></a>
+        <a pButton label="Logout" (click)="logout()" class="p-button-text"></a>
+      </div>
+    </ng-template>
+  </p-menubar>
+</div>
+
+<div *ngIf="isAdminLoggedIn">
+  <p-menubar>
+    <ng-template pTemplate="start">
+      <h1>NEX Ticketing</h1>
+    </ng-template>
+    <ng-template pTemplate="end">
+      <div>
+        <a
+          pButton
+          label="System Configuration"
+          routerLink="/admin/system-configuration"
+          class="p-button-text"
+        ></a>
+        <a pButton label="Dashboard" routerLink="/admin/transactions" class="p-button-text"></a>
         <a pButton label="Logout" (click)="logout()" class="p-button-text"></a>
       </div>
     </ng-template>

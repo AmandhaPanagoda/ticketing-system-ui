@@ -12,6 +12,7 @@ export class AppComponent {
 
   isCustomerLoggedIn: boolean = UserStorageService.isCustomerLoggedIn();
   isVendorLoggedIn: boolean = UserStorageService.isVendorLoggedIn();
+  isAdminLoggedIn: boolean = UserStorageService.isAdminLoggedIn();
 
   constructor(private router: Router) {}
 
@@ -19,6 +20,7 @@ export class AppComponent {
     this.router.events.subscribe(event => {
       this.isCustomerLoggedIn = UserStorageService.isCustomerLoggedIn();
       this.isVendorLoggedIn = UserStorageService.isVendorLoggedIn();
+      this.isAdminLoggedIn = UserStorageService.isAdminLoggedIn();
     });
   }
 

@@ -60,6 +60,14 @@ export class UserStorageService {
     return role === 'VENDOR';
   }
 
+  static isAdminLoggedIn(): boolean {
+    if (!this.getToken()) {
+      return false;
+    }
+    const role: string = this.getUserRole();
+    return role === 'ADMIN';
+  }
+
   static signOut(): void {
     window.localStorage.removeItem(USER);
     window.localStorage.removeItem(TOKEN);

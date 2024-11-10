@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './ticketing/components/login/login.component';
 import { SignupComponent } from './ticketing/components/signup/signup.component';
 import { SignupVendorComponent } from './ticketing/components/signup-vendor/signup-vendor.component';
-import { AdminPanelComponent } from './admin/pages/admin-panel/admin-panel.component';
 
 // PrimeNG imports
 import { ButtonModule } from 'primeng/button';
@@ -25,7 +24,6 @@ import { MessageService } from 'primeng/api';
     SignupComponent,
     SignupCustomerComponent,
     SignupVendorComponent,
-    AdminPanelComponent,
   ],
   imports: [
     BrowserModule,
