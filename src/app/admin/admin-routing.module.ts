@@ -1,10 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminComponent } from './admin.component';
+import { AdminPanelComponent } from './pages/admin-panel/admin-panel.component';
 import { TransactionLogComponent } from './pages/transaction-log/transaction-log.component';
+import { AdminComponent } from './admin.component';
 
 const routes: Routes = [
-  { path: '', component: AdminComponent },
+  {
+    path: '',
+    component: AdminComponent,
+  },
+  {
+    path: 'system-configuration',
+    component: AdminPanelComponent,
+  },
   {
     path: 'transactions',
     component: TransactionLogComponent,

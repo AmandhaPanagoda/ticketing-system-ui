@@ -1,1 +1,101 @@
-<p>admin-panel works!</p>
+<div class="admin-panel">
+  <div class="config-section">
+    <div class="header">
+      <h2>System Configuration</h2>
+      <button class="edit-btn" (click)="toggleEdit()">
+        {{ isEditing ? 'Cancel' : 'Edit' }}
+      </button>
+    </div>
+
+    <form [formGroup]="configForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <div class="label-group">
+          <label for="totalTickets">Total Tickets<span class="required">*</span></label>
+          <i
+            class="pi pi-info-circle"
+            pTooltip="The total tickets available in the system."
+            tooltipPosition="right"
+          ></i>
+        </div>
+        <input
+          id="totalTickets"
+          type="number"
+          formControlName="totalTickets"
+          [class.error]="
+            configForm.get('totalTickets')?.invalid && configForm.get('totalTickets')?.touched
+          "
+        />
+        <small class="info-text">Current total tickets available in the system</small>
+      </div>
+
+      <div class="form-group">
+        <div class="label-group">
+          <label for="maxTicketCapacity">Max Ticket Capacity<span class="required">*</span></label>
+          <i
+            class="pi pi-info-circle"
+            pTooltip="Maximum capacity of tickets the system can hold."
+            tooltipPosition="right"
+          ></i>
+        </div>
+        <input
+          id="maxTicketCapacity"
+          type="number"
+          formControlName="maxTicketCapacity"
+          [class.error]="
+            configForm.get('maxTicketCapacity')?.invalid &&
+            configForm.get('maxTicketCapacity')?.touched
+          "
+        />
+      </div>
+
+      <div class="form-group">
+        <div class="label-group">
+          <label for="customerRetrievalRate"
+            >Customer Retrieval Rate (ms)<span class="required">*</span></label
+          >
+          <i
+            class="pi pi-info-circle"
+            pTooltip="How often customers purchase tickets (in milliseconds)."
+            tooltipPosition="right"
+          ></i>
+        </div>
+        <input
+          id="customerRetrievalRate"
+          type="number"
+          formControlName="customerRetrievalRate"
+          [class.error]="
+            configForm.get('customerRetrievalRate')?.invalid &&
+            configForm.get('customerRetrievalRate')?.touched
+          "
+        />
+      </div>
+
+      <div class="form-group">
+        <div class="label-group">
+          <label for="ticketReleaseRate"
+            >Ticket Release Rate (ms)<span class="required">*</span></label
+          >
+          <i
+            class="pi pi-info-circle"
+            pTooltip="How frequently vendors add tickets (in milliseconds)."
+            tooltipPosition="right"
+          ></i>
+        </div>
+        <input
+          id="ticketReleaseRate"
+          type="number"
+          formControlName="ticketReleaseRate"
+          [class.error]="
+            configForm.get('ticketReleaseRate')?.invalid &&
+            configForm.get('ticketReleaseRate')?.touched
+          "
+        />
+      </div>
+
+      <button type="submit" class="submit-btn" [disabled]="!isEditing || configForm.invalid">
+        Update Configuration
+      </button>
+    </form>
+  </div>
+  <p-toast></p-toast>
+</div>
