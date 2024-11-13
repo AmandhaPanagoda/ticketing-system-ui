@@ -1,39 +1,63 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
 import { UserStorageService } from '../../ticketing/services/storage/user-storage.service';
-
-const BASIC_URL = 'http://localhost:8080/api/v1/';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VendorService {
+  private baseUrl = 'http://localhost:8080/api/v2/vendor';
+
   constructor(private http: HttpClient) {}
 
-  addTicket(ticketDTO: FormData): Observable<any> {
-    const userId = UserStorageService.getUserId();
+  getPoolStatus(): Observable<{ currentTicketCount: number }> {
     const token = UserStorageService.getToken();
+    const userId = UserStorageService.getUserId();
 
-    if (!userId || !token) {
+    if (!token || !userId) {
       return throwError(() => new Error('User not authenticated'));
     }
 
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
+      Userid: userId,
     });
 
-    console.log('Request Headers:', headers);
-    console.log('UserId:', userId);
-    console.log('FormData:', ticketDTO.get('title'));
+    return this.http.get<{ currentTicketCount: number }>(`${this.baseUrl}/pool/status`, {
+      headers,
+    });
+  }
 
-    return this.http.post(`${BASIC_URL}vendor/ticket/${userId}`, ticketDTO, { headers }).pipe(
-      tap(response => console.log('API Response:', response)),
-      catchError(error => {
-        console.error('API Error:', error);
-        return throwError(() => error);
+  addTickets(ticketCount: number): Observable<any> {
+    const token = UserStorageService.getToken();
+    const userId = UserStorageService.getUserId();
+
+    if (!token || !userId) {
+      return throwError(() => new Error('User not authenticated'));
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      Userid: userId,
+    });
+
+    const url = `${this.baseUrl}/tickets/${ticketCount}`;
+
+    return this.http
+      .post(url, null, {
+        headers: headers,
+        responseType: 'text',
+        observe: 'response',
       })
-    );
+      .pipe(
+        map(response => {
+          if (response.status === 202 || response.status === 200) {
+            return response.body;
+          }
+          throw new Error('Unexpected response');
+        })
+      );
   }
 }

@@ -1,58 +1,55 @@
-<div class="container p-4">
-  <h1 class="mb-4">Create Ticket</h1>
+<div class="ticket-release-container">
+  <!-- Banner Section -->
+  <div class="banner">
+    <img src="assets/images/ticket-placeholder.jpg" alt="Event Ticket" class="banner-image" />
+    <h1>Taylor Swift Eras Tour 2024</h1>
+  </div>
 
-  <form [formGroup]="validateForm" (ngSubmit)="addTicket()">
-    <div class="mb-3">
-      <label for="title" class="form-label">Title</label>
-      <input
-        id="title"
-        type="text"
-        class="form-control"
-        formControlName="title"
-        placeholder="Enter ticket title"
-      />
+  <!-- Current Pool Status -->
+  <div class="pool-status">
+    <h2>Available Tickets in Queue</h2>
+    <div class="ticket-count">{{ poolStatus.currentTicketCount }}</div>
+  </div>
+
+  <!-- Release Form -->
+  <form [formGroup]="ticketForm" (ngSubmit)="onSubmit()" class="release-form">
+    <div class="form-group">
+      <label for="ticketCount">Number of Tickets to Release</label>
+      <span class="p-input-icon-right">
+        <i *ngIf="loading" class="pi pi-spin pi-spinner"></i>
+        <input
+          pInputText
+          id="ticketCount"
+          type="number"
+          formControlName="ticketCount"
+          placeholder="Enter number of tickets"
+        />
+      </span>
+
+      <small
+        class="p-error block"
+        *ngIf="ticketForm.get('ticketCount')?.errors?.['required'] && ticketForm.get('ticketCount')?.touched"
+      >
+        Number of tickets is required
+      </small>
+      <small
+        class="p-error block"
+        *ngIf="ticketForm.get('ticketCount')?.errors?.['min'] && ticketForm.get('ticketCount')?.touched"
+      >
+        Number must be greater than 0
+      </small>
     </div>
 
-    <div class="mb-3">
-      <label for="description" class="form-label">Description</label>
-      <textarea
-        id="description"
-        class="form-control"
-        formControlName="description"
-        rows="4"
-        placeholder="Enter ticket description"
-      ></textarea>
-    </div>
-
-    <div class="mb-3">
-      <label for="price" class="form-label">Price</label>
-      <input
-        id="price"
-        type="number"
-        class="form-control"
-        formControlName="price"
-        placeholder="Enter ticket price"
-      />
-    </div>
-
-    <div class="mb-3">
-      <label for="image" class="form-label">Upload Image</label>
-      <input
-        id="image"
-        type="file"
-        class="form-control"
-        accept="image/x-png,image/jpeg"
-        (change)="onFileSelected($event)"
-      />
-
-      <!-- Image Preview -->
-      <div *ngIf="imagePreview" class="mt-2">
-        <img [src]="imagePreview" alt="Preview" style="max-width: 200px" />
-      </div>
-    </div>
-
-    <button type="submit" class="btn btn-primary" [disabled]="!validateForm.valid">
-      Create Ticket
-    </button>
+    <button
+      pButton
+      type="submit"
+      [loading]="loading"
+      [disabled]="!ticketForm.valid || loading"
+      label="Release Tickets"
+      icon="pi pi-plus"
+      class="p-button-primary"
+    ></button>
   </form>
 </div>
+
+<p-toast></p-toast>
