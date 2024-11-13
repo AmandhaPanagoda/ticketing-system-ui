@@ -1,0 +1,73 @@
+:host ::ng-deep {
+  .p-menubar {
+    padding: 0 2rem;
+    height: 60px;
+    border: none;
+    border-radius: 0;
+    background: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    h1 {
+      display: none;
+    }
+
+    .p-button.p-button-text {
+      color: #186355;
+      text-transform: uppercase;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      padding: 0.5rem 1rem;
+      margin: 0 0.5rem;
+      position: relative;
+      background: transparent !important;
+      text-decoration: none;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: #186355;
+        transition: width 0.3s ease;
+      }
+
+      &:hover::after {
+        width: 100%;
+      }
+
+      &.active-route::after {
+        width: 100%;
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+
+      &:focus {
+        outline: none;
+        box-shadow: none;
+      }
+
+      &:enabled:focus {
+        outline: none;
+        box-shadow: none;
+      }
+
+      &:-moz-focus-inner {
+        border: 0;
+      }
+    }
+  }
+}
+
+:host {
+  display: block;
+  padding-top: 60px;
+}
