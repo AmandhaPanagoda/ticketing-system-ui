@@ -12,6 +12,7 @@ export class CustomerService {
 
   constructor(private http: HttpClient) {}
 
+  // not used : changed to a websocket
   getPoolStatus(): Observable<{ currentTicketCount: number }> {
     const token = UserStorageService.getToken();
     const userId = UserStorageService.getUserId();

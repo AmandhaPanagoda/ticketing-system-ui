@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Client } from '@stomp/stompjs';
 import { BehaviorSubject } from 'rxjs';
 
@@ -15,27 +15,39 @@ export interface TransactionLog {
 @Injectable({
   providedIn: 'root',
 })
-export class AdminWebsocketService {
+export class AdminWebsocketService implements OnDestroy {
   private client: Client;
   private transactionLogs = new BehaviorSubject<TransactionLog[]>([]);
   private logs: TransactionLog[] = [];
+  private isConnected = false;
 
   constructor() {
     this.client = new Client({
       brokerURL: 'ws://localhost:8080/ws/websocket',
       onConnect: () => {
         console.log('Admin WebSocket Connected');
+        this.isConnected = true;
         this.subscribeToTransactions();
       },
     });
+    this.connect();
   }
 
   connect(): void {
-    this.client.activate();
+    if (!this.isConnected) {
+      this.client.activate();
+    }
   }
 
   disconnect(): void {
-    this.client.deactivate();
+    if (this.isConnected) {
+      this.client.deactivate();
+      this.isConnected = false;
+    }
+  }
+
+  ngOnDestroy() {
+    this.disconnect();
   }
 
   private subscribeToTransactions(): void {

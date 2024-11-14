@@ -1,22 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { VendorService } from '../../services/vendor.service';
-import { UserStorageService } from '../../../ticketing/services/storage/user-storage.service';
+import { Subscription } from 'rxjs';
+import {
+  PoolStatusService,
+  PoolStatus,
+} from '../../../ticketing/services/pool/pool-status.service';
 
 @Component({
   selector: 'app-create-ticket',
   templateUrl: './create-ticket.component.html',
   styleUrl: './create-ticket.component.scss',
 })
-export class CreateTicketComponent implements OnInit {
+export class CreateTicketComponent implements OnInit, OnDestroy {
   ticketForm: FormGroup;
   poolStatus: any = { currentTicketCount: 0 };
   loading = false;
+  private subscription?: Subscription;
 
   constructor(
     private fb: FormBuilder,
     private vendorService: VendorService,
+    private poolStatusService: PoolStatusService,
     private messageService: MessageService
   ) {
     this.ticketForm = this.fb.group({
@@ -25,22 +31,24 @@ export class CreateTicketComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.refreshPoolStatus();
-  }
-
-  refreshPoolStatus() {
-    this.vendorService.getPoolStatus().subscribe({
+    this.subscription = this.poolStatusService.getPoolStatus().subscribe({
       next: status => {
-        this.poolStatus = status;
+        if (status) {
+          this.poolStatus = status;
+        }
       },
       error: error => {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'Failed to fetch pool status',
+          detail: 'Failed to get pool status updates',
         });
       },
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 
   onSubmit() {
@@ -55,7 +63,6 @@ export class CreateTicketComponent implements OnInit {
             summary: 'Success',
             detail: typeof response === 'string' ? response : 'Tickets release request processed',
           });
-          this.refreshPoolStatus();
           this.ticketForm.reset();
           this.loading = false;
         },
@@ -66,7 +73,6 @@ export class CreateTicketComponent implements OnInit {
             detail: error?.error?.message || error?.message || 'Failed to release tickets',
           });
           this.loading = false;
-          this.refreshPoolStatus();
           this.ticketForm.reset();
         },
       });

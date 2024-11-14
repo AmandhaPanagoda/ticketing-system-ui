@@ -1,13 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { CustomerService } from '../../services/customer.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-interface PoolStatus {
-  currentTicketCount: number;
-  isFull?: boolean;
-  isEmpty?: boolean;
-}
+import {
+  PoolStatusService,
+  PoolStatus,
+} from '../../../ticketing/services/pool/pool-status.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-buy-tickets',
@@ -15,14 +14,16 @@ interface PoolStatus {
   styleUrl: './buy-tickets.component.scss',
   providers: [MessageService],
 })
-export class BuyTicketsComponent implements OnInit {
+export class BuyTicketsComponent implements OnInit, OnDestroy {
   ticketForm: FormGroup;
   poolStatus?: PoolStatus;
   loading: boolean = false;
+  private subscription?: Subscription;
 
   constructor(
     private fb: FormBuilder,
     private customerService: CustomerService,
+    private poolStatusService: PoolStatusService,
     private messageService: MessageService
   ) {
     this.ticketForm = this.fb.group({
@@ -31,28 +32,46 @@ export class BuyTicketsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.refreshPoolStatus();
-  }
-
-  refreshPoolStatus() {
-    this.customerService.getPoolStatus().subscribe({
+    this.subscription = this.poolStatusService.getPoolStatus().subscribe({
       next: status => {
-        this.poolStatus = status;
+        if (status) {
+          this.poolStatus = status;
+          // Update max tickets that can be purchased
+          const ticketCount = this.ticketForm.get('ticketCount');
+          if (ticketCount && status.currentTicketCount < ticketCount.value) {
+            ticketCount.setValue(Math.max(1, status.currentTicketCount));
+          }
+        }
       },
       error: error => {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'Failed to fetch ticket availability',
+          detail: 'Failed to get pool status updates',
         });
       },
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 
   buyTickets() {
     if (this.ticketForm.valid) {
       this.loading = true;
       const ticketCount = this.ticketForm.get('ticketCount')?.value;
+
+      // Validate against current pool status
+      if (this.poolStatus && ticketCount > this.poolStatus.currentTicketCount) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Not enough tickets available',
+        });
+        this.loading = false;
+        return;
+      }
 
       this.customerService.buyTickets(ticketCount).subscribe({
         next: response => {
@@ -64,7 +83,6 @@ export class BuyTicketsComponent implements OnInit {
                 ? response
                 : 'Ticket purchase request submitted successfully',
           });
-          this.refreshPoolStatus();
           this.ticketForm.reset({ ticketCount: 1 });
         },
         error: error => {
@@ -73,7 +91,6 @@ export class BuyTicketsComponent implements OnInit {
             summary: 'Error',
             detail: error?.error?.message || error?.message || 'Failed to purchase tickets',
           });
-          this.refreshPoolStatus();
         },
         complete: () => {
           this.loading = false;

@@ -11,13 +11,33 @@
     <div class="text-center">
       <h2 class="text-4xl font-bold mb-2">Available Tickets</h2>
       <p-progressSpinner *ngIf="!poolStatus"></p-progressSpinner>
-      <div *ngIf="poolStatus" class="text-6xl font-bold text-primary">
+      <div
+        *ngIf="poolStatus"
+        class="text-6xl font-bold"
+        [ngClass]="{
+          'text-primary': poolStatus.currentTicketCount > 10,
+          'text-warning': poolStatus.currentTicketCount <= 10 && poolStatus.currentTicketCount > 0,
+          'text-danger': poolStatus.currentTicketCount === 0
+        }"
+      >
         {{ poolStatus.currentTicketCount }}
       </div>
+      <small *ngIf="poolStatus && poolStatus.isEmpty" class="text-danger"
+        >No tickets available</small
+      >
+      <small
+        *ngIf="poolStatus && poolStatus.currentTicketCount <= 10 && !poolStatus.isEmpty"
+        class="text-warning"
+      >
+        Limited tickets remaining!
+      </small>
     </div>
 
     <!-- Purchase Form -->
-    <div class="flex flex-column align-items-center gap-3 w-full max-w-30rem">
+    <form
+      [formGroup]="ticketForm"
+      class="flex flex-column align-items-center gap-3 w-full max-w-30rem"
+    >
       <span class="p-float-label w-full">
         <p-inputNumber
           id="ticketCount"
@@ -25,6 +45,7 @@
           [showButtons]="true"
           [min]="1"
           [max]="poolStatus?.currentTicketCount || 1"
+          [disabled]="!poolStatus || poolStatus.isEmpty"
           class="w-full"
         >
         </p-inputNumber>
@@ -36,9 +57,10 @@
         icon="pi pi-ticket"
         (onClick)="buyTickets()"
         [loading]="loading"
+        [disabled]="!ticketForm.valid || loading || !poolStatus || poolStatus.isEmpty"
         styleClass="w-full p-button-lg"
       >
       </p-button>
-    </div>
+    </form>
   </div>
 </div>

@@ -94,7 +94,6 @@ export class TransactionLogComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.websocketService.connect();
     this.subscription = this.websocketService.getTransactionLogs().subscribe({
       next: logs => {
         console.log('Received logs update:', logs);
@@ -171,6 +170,5 @@ export class TransactionLogComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription?.unsubscribe();
-    this.websocketService.disconnect();
   }
 }
