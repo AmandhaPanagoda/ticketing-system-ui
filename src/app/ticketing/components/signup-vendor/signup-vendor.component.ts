@@ -27,8 +27,8 @@ export class SignupVendorComponent implements OnInit {
         password: [null, [Validators.required, Validators.minLength(6)]],
         confirmPassword: [null, [Validators.required]],
         phoneNumber: [null],
-        firstName: [null],
-        lastName: [null],
+        firstName: [null, [Validators.required]],
+        lastName: [null, [Validators.required]],
       },
       {
         validator: this.passwordMatchValidator,
