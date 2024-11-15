@@ -23,12 +23,12 @@ export class SignupCustomerComponent implements OnInit {
     this.validateForm = this.fb.group(
       {
         username: [null, [Validators.required]],
+        firstName: [null],
+        lastName: [null],
         email: [null, [Validators.email, Validators.required]],
         password: [null, [Validators.required, Validators.minLength(6)]],
         confirmPassword: [null, [Validators.required]],
         phoneNumber: [null],
-        firstName: [null],
-        lastName: [null],
       },
       {
         validator: this.passwordMatchValidator,

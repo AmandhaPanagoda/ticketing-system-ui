@@ -1,142 +1,89 @@
-<div class="bg-gray-100">
-  <div class="container mx-auto">
-    <div class="flex justify-center items-center h-screen">
-      <div class="w-1/2 bg-white p-8 rounded-lg shadow-lg">
-        <h1 class="text-2xl font-bold mb-4">Signup Customer</h1>
+<div class="signup-container">
+  <div class="signup-card">
+    <h2>Create Customer Account</h2>
+
+    <form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+      <div class="form-group">
+        <label>Username <span class="required">*</span></label>
+        <input type="text" pInputText formControlName="username" />
+        <small
+          class="error-message"
+          *ngIf="validateForm.get('username')?.touched && validateForm.get('username')?.errors?.['required']"
+        >
+          Username is required
+        </small>
       </div>
-      <form [formGroup]="validateForm" (ngSubmit)="submitForm()">
-        <div class="p-fluid">
-          <!-- Username -->
-          <div class="p-field">
-            <label for="username">Username</label>
-            <input
-              id="username"
-              type="text"
-              pInputText
-              formControlName="username"
-              [ngClass]="{
-                'ng-dirty':
-                  validateForm.get('username')?.touched && validateForm.get('username')?.invalid
-              }"
-            />
-            <small
-              *ngIf="
-                validateForm.get('username')?.invalid &&
-                (validateForm.get('username')?.dirty || validateForm.get('username')?.touched)
-              "
-              class="p-error"
-            >
-              <span *ngIf="validateForm.get('username')?.errors?.['required']"
-                >Username is required.</span
-              >
-            </small>
-          </div>
 
-          <!-- First Name -->
-          <div class="p-field">
-            <label for="firstName">First Name</label>
-            <input id="firstName" type="text" pInputText formControlName="firstName" />
-          </div>
-
-          <!-- Last Name -->
-          <div class="p-field">
-            <label for="lastName">Last Name</label>
-            <input id="lastName" type="text" pInputText formControlName="lastName" />
-          </div>
-
-          <!-- Email -->
-          <div class="p-field">
-            <label for="email">Email</label>
-            <input
-              id="email"
-              type="text"
-              pInputText
-              formControlName="email"
-              [ngClass]="{
-                'ng-dirty': validateForm.get('email')?.touched && validateForm.get('email')?.invalid
-              }"
-            />
-            <small
-              *ngIf="
-                validateForm.get('email')?.invalid &&
-                (validateForm.get('email')?.dirty || validateForm.get('email')?.touched)
-              "
-              class="p-error"
-            >
-              <span *ngIf="validateForm.get('email')?.errors?.['required']"
-                >Email is required.</span
-              >
-              <span *ngIf="validateForm.get('email')?.errors?.['email']"
-                >Please enter a valid email address.</span
-              >
-            </small>
-          </div>
-
-          <!-- Password -->
-          <div class="p-field">
-            <label for="password">Password</label>
-            <input
-              id="password"
-              type="password"
-              pInputText
-              formControlName="password"
-              [ngClass]="{
-                'ng-dirty':
-                  validateForm.get('password')?.touched && validateForm.get('password')?.invalid
-              }"
-            />
-            <small
-              *ngIf="
-                validateForm.get('password')?.invalid &&
-                (validateForm.get('password')?.dirty || validateForm.get('password')?.touched)
-              "
-              class="p-error"
-            >
-              <span *ngIf="validateForm.get('password')?.errors?.['required']"
-                >Password is required.</span
-              >
-            </small>
-          </div>
-
-          <!-- Confirm Password -->
-          <div class="p-field">
-            <label for="confirmPassword">Confirm Password</label>
-            <input
-              id="confirmPassword"
-              type="password"
-              pInputText
-              formControlName="confirmPassword"
-              [ngClass]="{
-                'ng-dirty':
-                  validateForm.get('confirmPassword')?.touched &&
-                  validateForm.get('confirmPassword')?.invalid
-              }"
-            />
-            <small
-              *ngIf="
-                validateForm.get('confirmPassword')?.invalid &&
-                (validateForm.get('confirmPassword')?.dirty ||
-                  validateForm.get('confirmPassword')?.touched)
-              "
-              class="p-error"
-            >
-              <span *ngIf="validateForm.get('confirmPassword')?.errors?.['required']"
-                >Please confirm your password.</span
-              >
-            </small>
-          </div>
-
-          <!-- Phone Number -->
-          <div class="p-field">
-            <label for="phoneNumber">Phone Number</label>
-            <input id="phoneNumber" type="tel" pInputText formControlName="phoneNumber" />
-          </div>
-
-          <!-- Submit Button -->
-          <button pButton class="mt-4" type="submit" label="Register"></button> Or
-          <a routerLink="/login">Login</a>
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name </label>
+          <input type="text" pInputText formControlName="firstName" />
         </div>
-      </form>
-    </div>
+
+        <div class="form-group">
+          <label>Last Name </label>
+          <input type="text" pInputText formControlName="lastName" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Email <span class="required">*</span></label>
+        <input type="email" pInputText formControlName="email" />
+        <small
+          class="error-message"
+          *ngIf="validateForm.get('email')?.touched && validateForm.get('email')?.errors?.['required']"
+        >
+          Email is required
+        </small>
+        <small
+          class="error-message"
+          *ngIf="validateForm.get('email')?.touched && validateForm.get('email')?.errors?.['email']"
+        >
+          Please enter a valid email
+        </small>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Password <span class="required">*</span></label>
+          <input type="password" pInputText formControlName="password" />
+          <small
+            class="error-message"
+            *ngIf="validateForm.get('password')?.touched && validateForm.get('password')?.errors?.['required']"
+          >
+            Password is required
+          </small>
+          <small
+            class="error-message"
+            *ngIf="validateForm.get('password')?.touched && validateForm.get('password')?.errors?.['minlength']"
+          >
+            Password must be at least 6 characters
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label>Confirm Password <span class="required">*</span></label>
+          <input type="password" pInputText formControlName="confirmPassword" />
+          <small
+            class="error-message"
+            *ngIf="
+              validateForm.get('confirmPassword')?.touched && validateForm.hasError('mismatch')
+            "
+          >
+            Passwords do not match
+          </small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" pInputText formControlName="phoneNumber" />
+      </div>
+
+      <div class="button-group">
+        <button pButton type="submit" label="Create Account"></button>
+        <p class="register-text">Already have an account? <a routerLink="/login">Login</a></p>
+      </div>
+    </form>
   </div>
 </div>

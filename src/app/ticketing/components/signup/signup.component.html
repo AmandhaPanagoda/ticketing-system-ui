@@ -1,35 +1,48 @@
-<div class="surface-ground px-4 py-8 md:px-6 lg:px-8">
+<div class="surface-ground">
   <div class="text-center">
-    <div class="mb-3">
-      <i class="pi pi-ticket text-6xl text-primary"></i>
-    </div>
-    <div class="text-900 font-bold text-5xl mb-3">Welcome to NEX Ticketing</div>
-    <div class="text-700 text-xl mb-5">
-      Your one-stop destination for seamless ticket management
-    </div>
-    <div class="text-700 line-height-3 mb-6">
-      Whether you're looking to sell tickets for your events or purchase tickets for amazing
-      experiences, we've got you covered. Choose your journey below.
+    <div class="logo-container mb-4">
+      <img src="assets/cover-logo.png" alt="NEX Logo" class="logo-image" />
     </div>
 
-    <div class="flex flex-column md:flex-row gap-4 justify-content-center">
+    <div class="tagline-container mb-6">
+      <h2 class="text-2xl font-bold mb-3">NEX Ticketing System</h2>
+      <p class="text-lg text-gray-700 mb-3">Powered by Java Threads & Spring Boot</p>
+      <p class="text-md text-gray-600 mb-4">Because waiting in line is so... single-threaded 😉</p>
+
+      <div class="features-section mb-6">
+        <p class="text-md mb-2">⚡ Concurrent ticket processing for instant results</p>
+        <p class="text-md mb-2">🔒 Thread-safe transactions</p>
+        <p class="text-md mb-2">🚀 Optimized performance with Spring Boot</p>
+        <p class="text-md">💡 Real-time updates and notifications</p>
+      </div>
+    </div>
+
+    <div class="button-container">
       <button
         pButton
         pRipple
-        label="I Want to Buy Tickets"
-        icon="pi pi-shopping-cart"
-        class="p-button-lg p-button-primary"
+        class="p-button-lg custom-button primary-button"
         [routerLink]="['/register_customer']"
-      ></button>
+      >
+        <span class="button-content">
+          <i class="pi pi-shopping-cart"></i>
+          <span class="button-text">Buy Tickets</span>
+          <i class="pi pi-arrow-right transition-icon"></i>
+        </span>
+      </button>
 
       <button
         pButton
         pRipple
-        label="I Want to Sell Tickets"
-        icon="pi pi-ticket"
-        class="p-button-lg p-button-secondary"
+        class="p-button-lg custom-button secondary-button"
         [routerLink]="['/register_vendor']"
-      ></button>
+      >
+        <span class="button-content">
+          <i class="pi pi-ticket"></i>
+          <span class="button-text">Sell Tickets</span>
+          <i class="pi pi-arrow-right transition-icon"></i>
+        </span>
+      </button>
     </div>
   </div>
 </div>
