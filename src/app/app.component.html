@@ -5,9 +5,27 @@
     </ng-template>
     <ng-template pTemplate="end">
       <div>
-        <a pButton label="Home" routerLink="/home" class="p-button-text"></a>
-        <a pButton label="Register" routerLink="/register" class="p-button-text"></a>
-        <a pButton label="Login" routerLink="/login" class="p-button-text"></a>
+        <a
+          pButton
+          label="Home"
+          routerLink="/home"
+          routerLinkActive="active-link"
+          class="p-button-text"
+        ></a>
+        <a
+          pButton
+          label="Register"
+          routerLink="/register"
+          routerLinkActive="active-link"
+          class="p-button-text"
+        ></a>
+        <a
+          pButton
+          label="Login"
+          routerLink="/login"
+          routerLinkActive="active-link"
+          class="p-button-text"
+        ></a>
       </div>
     </ng-template>
   </p-menubar>
@@ -20,8 +38,20 @@
     </ng-template>
     <ng-template pTemplate="end">
       <div>
-        <a pButton label="Dashboard" routerLink="/customer/dashboard" class="p-button-text"></a>
-        <a pButton label="Buy Tickets" routerLink="/customer/buy-tickets" class="p-button-text"></a>
+        <a
+          pButton
+          label="Dashboard"
+          routerLink="/customer/dashboard"
+          routerLinkActive="active-link"
+          class="p-button-text"
+        ></a>
+        <a
+          pButton
+          label="Buy Tickets"
+          routerLink="/customer/buy-tickets"
+          routerLinkActive="active-link"
+          class="p-button-text"
+        ></a>
         <a pButton label="Logout" (click)="logout()" class="p-button-text"></a>
       </div>
     </ng-template>
@@ -35,8 +65,20 @@
     </ng-template>
     <ng-template pTemplate="end">
       <div>
-        <a pButton label="Dashboard" routerLink="/vendor/dashboard" class="p-button-text"></a>
-        <a pButton label="Release Tickets" routerLink="/vendor/ticket" class="p-button-text"></a>
+        <a
+          pButton
+          label="Dashboard"
+          routerLink="/vendor/dashboard"
+          routerLinkActive="active-link"
+          class="p-button-text"
+        ></a>
+        <a
+          pButton
+          label="Release Tickets"
+          routerLink="/vendor/ticket"
+          routerLinkActive="active-link"
+          class="p-button-text"
+        ></a>
         <a pButton label="Logout" (click)="logout()" class="p-button-text"></a>
       </div>
     </ng-template>
@@ -56,7 +98,13 @@
           routerLink="/admin/system-configuration"
           class="p-button-text"
         ></a>
-        <a pButton label="Dashboard" routerLink="/admin/transactions" class="p-button-text"></a>
+        <a
+          pButton
+          label="Dashboard"
+          routerLink="/admin/transactions"
+          routerLinkActive="active-link"
+          class="p-button-text"
+        ></a>
         <a pButton label="Logout" (click)="logout()" class="p-button-text"></a>
       </div>
     </ng-template>
