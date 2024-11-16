@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { UserStorageService } from '../../ticketing/services/storage/user-storage.service';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -58,6 +58,14 @@ export class VendorService {
             return response.body;
           }
           throw new Error('Unexpected response');
+        }),
+        catchError(error => {
+          if (error.error instanceof ErrorEvent) {
+            return throwError(() => new Error('Network error occurred'));
+          } else {
+            const errorMessage = error.error || error.message || 'An error occurred';
+            return throwError(() => ({ message: errorMessage }));
+          }
         })
       );
   }

@@ -16,8 +16,8 @@ import { Subscription } from 'rxjs';
 })
 export class BuyTicketsComponent implements OnInit, OnDestroy {
   ticketForm: FormGroup;
-  poolStatus?: PoolStatus;
-  loading: boolean = false;
+  poolStatus: any = { currentTicketCount: 0 };
+  loading = false;
   private subscription?: Subscription;
 
   constructor(
@@ -27,7 +27,7 @@ export class BuyTicketsComponent implements OnInit, OnDestroy {
     private messageService: MessageService
   ) {
     this.ticketForm = this.fb.group({
-      ticketCount: ['1', [Validators.required, Validators.min(1)]],
+      ticketCount: ['', [Validators.required, Validators.min(1)]],
     });
   }
 
@@ -36,7 +36,6 @@ export class BuyTicketsComponent implements OnInit, OnDestroy {
       next: status => {
         if (status) {
           this.poolStatus = status;
-          // Update max tickets that can be purchased
           const ticketCount = this.ticketForm.get('ticketCount');
           if (ticketCount && status.currentTicketCount < ticketCount.value) {
             ticketCount.setValue(Math.max(1, status.currentTicketCount));

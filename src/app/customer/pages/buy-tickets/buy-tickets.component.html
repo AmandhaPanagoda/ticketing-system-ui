@@ -1,66 +1,60 @@
-<p-toast></p-toast>
+<div class="banner">
+  <img src="assets/event-banner-placeholder.jpg" alt="Event Banner" class="banner-image" />
+  <h1>Buy Tickets</h1>
+</div>
 
-<div class="card">
-  <!-- Banner Image -->
-  <div class="banner-container">
-    <img src="assets/event-banner-placeholder.jpg" alt="Event Banner" class="w-full max-h-30rem" />
+<div class="ticket-release-container">
+  <div class="pool-status">
+    <h2>Available Tickets</h2>
+    <p-progressSpinner *ngIf="!poolStatus"></p-progressSpinner>
+    <div
+      *ngIf="poolStatus"
+      class="ticket-count"
+      [ngClass]="{
+        'text-warning': poolStatus.currentTicketCount <= 10 && poolStatus.currentTicketCount > 0,
+        'text-danger': poolStatus.currentTicketCount === 0
+      }"
+    >
+      {{ poolStatus.currentTicketCount }}
+    </div>
+    <small *ngIf="poolStatus && poolStatus.isEmpty" class="status-message text-danger">
+      No tickets available
+    </small>
+    <small
+      *ngIf="poolStatus && poolStatus.currentTicketCount <= 10 && !poolStatus.isEmpty"
+      class="status-message text-warning"
+    >
+      Limited tickets remaining!
+    </small>
   </div>
 
-  <!-- Ticket Information -->
-  <div class="flex flex-column align-items-center gap-4 py-5">
-    <div class="text-center">
-      <h2 class="text-4xl font-bold mb-2">Available Tickets</h2>
-      <p-progressSpinner *ngIf="!poolStatus"></p-progressSpinner>
-      <div
-        *ngIf="poolStatus"
-        class="text-6xl font-bold"
-        [ngClass]="{
-          'text-primary': poolStatus.currentTicketCount > 10,
-          'text-warning': poolStatus.currentTicketCount <= 10 && poolStatus.currentTicketCount > 0,
-          'text-danger': poolStatus.currentTicketCount === 0
-        }"
-      >
-        {{ poolStatus.currentTicketCount }}
-      </div>
-      <small *ngIf="poolStatus && poolStatus.isEmpty" class="text-danger"
-        >No tickets available</small
-      >
-      <small
-        *ngIf="poolStatus && poolStatus.currentTicketCount <= 10 && !poolStatus.isEmpty"
-        class="text-warning"
-      >
-        Limited tickets remaining!
-      </small>
-    </div>
-
-    <!-- Purchase Form -->
-    <form
-      [formGroup]="ticketForm"
-      class="flex flex-column align-items-center gap-3 w-full max-w-30rem"
-    >
-      <span class="p-float-label w-full">
+  <form [formGroup]="ticketForm" (ngSubmit)="buyTickets()" class="release-form">
+    <div class="form-group">
+      <label for="ticketCount">Number of Tickets to Buy</label>
+      <div class="input-number-container">
         <p-inputNumber
           id="ticketCount"
           formControlName="ticketCount"
           [showButtons]="true"
           [min]="1"
-          [max]="poolStatus?.currentTicketCount || 1"
-          [disabled]="!poolStatus || poolStatus.isEmpty"
-          class="w-full"
-        >
-        </p-inputNumber>
-        <label for="ticketCount">Number of Tickets</label>
-      </span>
+          [max]="poolStatus?.currentTicketCount"
+          buttonLayout="horizontal"
+          spinnerMode="horizontal"
+          [inputStyleClass]="'p-inputtext-lg'"
+          decrementButtonIcon="pi pi-minus"
+          incrementButtonIcon="pi pi-plus"
+          [style]="{ width: '100%' }"
+        ></p-inputNumber>
+      </div>
+    </div>
 
-      <p-button
-        label="Buy Tickets"
-        icon="pi pi-ticket"
-        (onClick)="buyTickets()"
-        [loading]="loading"
-        [disabled]="!ticketForm.valid || loading || !poolStatus || poolStatus.isEmpty"
-        styleClass="w-full p-button-lg"
-      >
-      </p-button>
-    </form>
-  </div>
+    <button pButton type="submit" [disabled]="!ticketForm.valid" class="p-button-lg release-button">
+      <span class="button-content">
+        Buy Tickets
+        <i class="pi pi-arrow-right"></i>
+      </span>
+    </button>
+  </form>
 </div>
+
+<p-toast></p-toast>

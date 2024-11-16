@@ -9,6 +9,8 @@ import { CreateTicketComponent } from './pages/create-ticket/create-ticket.compo
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { StepsModule } from 'primeng/steps';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
   declarations: [VendorComponent, VendorDashboardComponent, CreateTicketComponent],
@@ -19,6 +21,8 @@ import { InputTextModule } from 'primeng/inputtext';
     ToastModule,
     ButtonModule,
     InputTextModule,
+    StepsModule,
+    InputNumberModule,
   ],
 })
 export class VendorModule {}
