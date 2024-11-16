@@ -12,7 +12,7 @@ export class VendorService {
 
   constructor(private http: HttpClient) {}
 
-  // not used : changed to a websocket
+  // used for initial pool status
   getPoolStatus(): Observable<{ currentTicketCount: number }> {
     const token = UserStorageService.getToken();
     const userId = UserStorageService.getUserId();

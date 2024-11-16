@@ -31,6 +31,28 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.loadInitialPoolStatus();
+    this.subscribeToPoolUpdates();
+  }
+
+  loadInitialPoolStatus() {
+    this.vendorService.getPoolStatus().subscribe({
+      next: status => {
+        if (status) {
+          this.poolStatus = status;
+        }
+      },
+      error: error => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to load initial pool status',
+        });
+      },
+    });
+  }
+
+  private subscribeToPoolUpdates() {
     this.subscription = this.poolStatusService.getPoolStatus().subscribe({
       next: status => {
         if (status) {

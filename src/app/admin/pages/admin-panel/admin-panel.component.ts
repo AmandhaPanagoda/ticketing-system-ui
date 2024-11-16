@@ -4,6 +4,7 @@ import { AdminService } from '../../services/admin.service';
 import { SystemConfiguration } from '../../models/system-configuration.model';
 import { MessageService } from 'primeng/api';
 import { ConfirmationService } from 'primeng/api';
+import { PoolStatusService } from '../../../ticketing/services/pool/pool-status.service';
 
 @Component({
   selector: 'app-admin-panel',
@@ -15,15 +16,16 @@ export class AdminPanelComponent implements OnInit {
   configForm: FormGroup;
   isEditing = false;
   systemRunning = false;
+  currentTicketCount: number = 0;
 
   constructor(
     private fb: FormBuilder,
     private adminService: AdminService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private poolStatusService: PoolStatusService
   ) {
     this.configForm = this.fb.group({
-      totalTickets: [{ value: '', disabled: true }],
       ticketReleaseRate: [{ value: '', disabled: true }, [Validators.required, Validators.min(1)]],
       customerRetrievalRate: [
         { value: '', disabled: true },
@@ -36,6 +38,8 @@ export class AdminPanelComponent implements OnInit {
   ngOnInit() {
     this.loadSystemStatus();
     this.loadConfiguration();
+    this.loadInitialPoolStatus();
+    this.subscribeToPoolUpdates();
   }
 
   loadSystemStatus() {
@@ -154,5 +158,39 @@ export class AdminPanelComponent implements OnInit {
     } else {
       this.configForm.disable();
     }
+  }
+
+  loadInitialPoolStatus() {
+    this.adminService.getPoolStatus().subscribe({
+      next: (status: any) => {
+        this.currentTicketCount = status.currentTicketCount;
+      },
+      error: error => {
+        console.error('Error loading initial pool status:', error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to load initial pool status',
+        });
+      },
+    });
+  }
+
+  private subscribeToPoolUpdates() {
+    this.poolStatusService.getPoolStatus().subscribe({
+      next: status => {
+        if (status) {
+          this.currentTicketCount = status.currentTicketCount;
+        }
+      },
+      error: error => {
+        console.error('Error getting pool status updates:', error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to get pool status updates',
+        });
+      },
+    });
   }
 }

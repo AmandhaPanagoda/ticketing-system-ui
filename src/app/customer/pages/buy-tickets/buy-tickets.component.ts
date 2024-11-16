@@ -2,10 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { CustomerService } from '../../services/customer.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {
-  PoolStatusService,
-  PoolStatus,
-} from '../../../ticketing/services/pool/pool-status.service';
+import { PoolStatusService } from '../../../ticketing/services/pool/pool-status.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -32,14 +29,32 @@ export class BuyTicketsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.loadInitialPoolStatus();
+    this.subscribeToPoolUpdates();
+  }
+
+  loadInitialPoolStatus() {
+    this.customerService.getPoolStatus().subscribe({
+      next: status => {
+        if (status) {
+          this.poolStatus = status;
+        }
+      },
+      error: error => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to load initial pool status',
+        });
+      },
+    });
+  }
+
+  private subscribeToPoolUpdates() {
     this.subscription = this.poolStatusService.getPoolStatus().subscribe({
       next: status => {
         if (status) {
           this.poolStatus = status;
-          const ticketCount = this.ticketForm.get('ticketCount');
-          if (ticketCount && status.currentTicketCount < ticketCount.value) {
-            ticketCount.setValue(Math.max(1, status.currentTicketCount));
-          }
         }
       },
       error: error => {

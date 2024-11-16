@@ -66,7 +66,7 @@ export class SignupVendorComponent implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
-          detail: 'User registered successfully',
+          detail: 'Vendor registered successfully',
           life: 3000,
         });
         this.router.navigate(['/login']);

@@ -80,4 +80,20 @@ export class AdminService {
       responseType: 'text',
     });
   }
+
+  getPoolStatus() {
+    const token = UserStorageService.getToken();
+    const userId = UserStorageService.getUserId();
+
+    if (!token) {
+      return throwError(() => new Error('User not authenticated'));
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      Userid: userId.toString(),
+    });
+
+    return this.http.get<any>(`${this.baseUrl}/pool/status`, { headers });
+  }
 }
