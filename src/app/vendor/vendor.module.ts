@@ -11,6 +11,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { StepsModule } from 'primeng/steps';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [VendorComponent, VendorDashboardComponent, CreateTicketComponent],
@@ -23,6 +24,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     InputTextModule,
     StepsModule,
     InputNumberModule,
+    TableModule,
   ],
 })
 export class VendorModule {}

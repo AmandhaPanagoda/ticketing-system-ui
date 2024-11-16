@@ -7,6 +7,7 @@ import {
   PoolStatusService,
   PoolStatus,
 } from '../../../ticketing/services/pool/pool-status.service';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'app-create-ticket',
@@ -18,6 +19,7 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
   poolStatus: any = { currentTicketCount: 0 };
   loading = false;
   private subscription?: Subscription;
+  ticketSummaries: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -33,6 +35,7 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loadInitialPoolStatus();
     this.subscribeToPoolUpdates();
+    this.loadTicketSummaries();
   }
 
   loadInitialPoolStatus() {
@@ -73,6 +76,21 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
     this.subscription?.unsubscribe();
   }
 
+  loadTicketSummaries() {
+    this.vendorService.getTicketSummaries().subscribe({
+      next: summaries => {
+        this.ticketSummaries = summaries;
+      },
+      error: error => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to load ticket summaries',
+        });
+      },
+    });
+  }
+
   onSubmit() {
     if (this.ticketForm.valid) {
       this.loading = true;
@@ -87,6 +105,7 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
           });
           this.ticketForm.reset();
           this.loading = false;
+          this.loadTicketSummaries();
         },
         error: error => {
           this.messageService.add({
