@@ -61,4 +61,20 @@ export class CustomerService {
         })
       );
   }
+
+  getTicketSummaries(): Observable<any[]> {
+    const token = UserStorageService.getToken();
+    const userId = UserStorageService.getUserId();
+
+    if (!token || !userId) {
+      return throwError(() => new Error('User not authenticated'));
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      Userid: userId,
+    });
+
+    return this.http.get<any[]>(`${this.baseUrl}/tickets`, { headers });
+  }
 }

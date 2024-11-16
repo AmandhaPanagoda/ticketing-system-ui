@@ -11,6 +11,7 @@ import { CustomerRoutingModule } from './customer-routing.module';
 import { CustomerComponent } from './customer.component';
 import { CustomerDashboardComponent } from './pages/customer-dashboard/customer-dashboard/customer-dashboard.component';
 import { BuyTicketsComponent } from './pages/buy-tickets/buy-tickets.component';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [CustomerComponent, CustomerDashboardComponent, BuyTicketsComponent],
@@ -23,6 +24,7 @@ import { BuyTicketsComponent } from './pages/buy-tickets/buy-tickets.component';
     ProgressSpinnerModule,
     CustomerRoutingModule,
     ReactiveFormsModule,
+    TableModule,
   ],
 })
 export class CustomerModule {}

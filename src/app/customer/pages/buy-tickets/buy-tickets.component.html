@@ -57,4 +57,40 @@
   </form>
 </div>
 
+<div class="transaction-summary-container">
+  <h2>Transaction Summary</h2>
+
+  <p-table
+    [value]="ticketSummaries"
+    [paginator]="true"
+    [rows]="10"
+    styleClass="p-datatable-striped"
+    [tableStyle]="{ 'min-width': '50rem' }"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Ticket ID</th>
+        <th>Created Date</th>
+        <th>Purchase Date</th>
+        <th>Vendor</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-ticket>
+      <tr>
+        <td>{{ ticket.ticketId }}</td>
+        <td>{{ ticket.createdDateTime | date : 'medium' }}</td>
+        <td>
+          {{ ticket.purchasedDateTime ? (ticket.purchasedDateTime | date : 'medium') : 'N/A' }}
+        </td>
+        <td>{{ ticket.vendorUsername || 'Unavailable' }}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="5" class="text-center">No tickets found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
 <p-toast></p-toast>

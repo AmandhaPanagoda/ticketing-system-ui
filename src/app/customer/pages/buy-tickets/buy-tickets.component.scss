@@ -210,3 +210,39 @@
     transform: scale(1);
   }
 }
+
+// ... existing styles ...
+
+.transaction-summary-container {
+  max-width: 1200px;
+  margin: 4rem auto;
+  padding: 0 2rem;
+
+  h2 {
+    color: #333;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 2rem;
+  }
+
+  :host ::ng-deep {
+    .p-datatable {
+      .p-datatable-header {
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+      }
+
+      .p-datatable-thead > tr > th {
+        background: #f8f9fa;
+        color: #333;
+        font-weight: 600;
+        padding: 1rem;
+      }
+
+      .p-datatable-tbody > tr > td {
+        padding: 1rem;
+        vertical-align: middle;
+      }
+    }
+  }
+}

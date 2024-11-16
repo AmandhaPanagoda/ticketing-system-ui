@@ -16,7 +16,7 @@ export class BuyTicketsComponent implements OnInit, OnDestroy {
   poolStatus: any = { currentTicketCount: 0 };
   loading = false;
   private subscription?: Subscription;
-
+  ticketSummaries: any[] = [];
   constructor(
     private fb: FormBuilder,
     private customerService: CustomerService,
@@ -31,6 +31,7 @@ export class BuyTicketsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loadInitialPoolStatus();
     this.subscribeToPoolUpdates();
+    this.loadTicketSummaries();
   }
 
   loadInitialPoolStatus() {
@@ -45,6 +46,21 @@ export class BuyTicketsComponent implements OnInit, OnDestroy {
           severity: 'error',
           summary: 'Error',
           detail: 'Failed to load initial pool status',
+        });
+      },
+    });
+  }
+
+  loadTicketSummaries() {
+    this.customerService.getTicketSummaries().subscribe({
+      next: summaries => {
+        this.ticketSummaries = summaries;
+      },
+      error: error => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to load ticket summaries',
         });
       },
     });
