@@ -5,8 +5,14 @@
 
   <h2>Transaction Logs</h2>
   <div class="log-container">
-    <table class="table">
-      <thead>
+    <p-table
+      [value]="logs"
+      [paginator]="true"
+      [rows]="10"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    >
+      <ng-template pTemplate="header">
         <tr>
           <th>Type</th>
           <th>Time</th>
@@ -16,9 +22,9 @@
           <th>Amount</th>
           <th>Status</th>
         </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let log of logs">
+      </ng-template>
+      <ng-template pTemplate="body" let-log>
+        <tr>
           <td>{{ log.type }}</td>
           <td>{{ log.timestamp | date : 'medium' }}</td>
           <td>{{ log.userId }}</td>
@@ -27,7 +33,7 @@
           <td>{{ log.amount | currency }}</td>
           <td>{{ log.status }}</td>
         </tr>
-      </tbody>
-    </table>
+      </ng-template>
+    </p-table>
   </div>
 </div>

@@ -38,3 +38,21 @@
     }
   }
 }
+
+:host ::ng-deep .p-paginator {
+  .p-paginator-current {
+    margin-left: auto;
+  }
+}
+
+:host ::ng-deep .p-datatable.p-datatable-customers {
+  .p-datatable-header {
+    padding: 1rem;
+    text-align: left;
+    font-size: 1.5rem;
+  }
+
+  .p-paginator {
+    padding: 1rem;
+  }
+}
