@@ -50,7 +50,7 @@ export class LoginComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
-            detail: 'Invalid credentials. Please try again.',
+            detail: error.error || 'An unexpected error occurred',
             life: 3000,
           });
           console.error('Login error:', error);
