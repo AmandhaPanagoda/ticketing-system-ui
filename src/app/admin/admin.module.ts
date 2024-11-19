@@ -13,6 +13,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
 
 @NgModule({
   declarations: [AdminComponent, AdminPanelComponent, TransactionLogComponent],
@@ -25,6 +26,7 @@ import { TableModule } from 'primeng/table';
     TooltipModule,
     ConfirmDialogModule,
     TableModule,
+    TagModule,
   ],
   providers: [AdminWebsocketService, MessageService, ConfirmationService],
 })

@@ -5,6 +5,8 @@ import { SystemConfiguration } from '../../models/system-configuration.model';
 import { MessageService } from 'primeng/api';
 import { ConfirmationService } from 'primeng/api';
 import { PoolStatusService } from '../../../ticketing/services/pool/pool-status.service';
+import { Table } from 'primeng/table';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-admin-panel',
@@ -17,6 +19,8 @@ export class AdminPanelComponent implements OnInit {
   isEditing = false;
   systemRunning = false;
   currentTicketCount: number = 0;
+  users: User[] = [];
+  loading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -40,6 +44,7 @@ export class AdminPanelComponent implements OnInit {
     this.loadConfiguration();
     this.loadInitialPoolStatus();
     this.subscribeToPoolUpdates();
+    this.loadUsers();
   }
 
   loadSystemStatus() {
@@ -52,7 +57,7 @@ export class AdminPanelComponent implements OnInit {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'Failed to load system status',
+          detail: error.error || 'Failed to load system status',
         });
       },
     });
@@ -115,7 +120,7 @@ export class AdminPanelComponent implements OnInit {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'Failed to load system configuration',
+          detail: error.error || 'Failed to load system configuration',
         });
       },
     });
@@ -170,7 +175,7 @@ export class AdminPanelComponent implements OnInit {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'Failed to load initial pool status',
+          detail: error.error || 'Failed to load initial pool status',
         });
       },
     });
@@ -188,7 +193,58 @@ export class AdminPanelComponent implements OnInit {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'Failed to get pool status updates',
+          detail: error.error || 'Failed to get pool status updates',
+        });
+      },
+    });
+  }
+
+  loadUsers() {
+    this.loading = true;
+    this.adminService.getAllUsers().subscribe({
+      next: users => {
+        this.users = users;
+        this.loading = false;
+      },
+      error: error => {
+        console.error('Error loading users:', error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: error.error || 'Failed to load users',
+        });
+        this.loading = false;
+      },
+    });
+  }
+
+  deleteUser(userId: number) {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete this user?',
+      header: 'Confirm Delete',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Yes',
+      rejectLabel: 'No',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-secondary',
+      accept: () => {
+        this.adminService.deleteUser(userId).subscribe({
+          next: () => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'User deleted successfully',
+            });
+            this.loadUsers();
+          },
+          error: error => {
+            console.error('Error deleting user:', error);
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: error.error || 'Failed to delete user',
+            });
+          },
         });
       },
     });
