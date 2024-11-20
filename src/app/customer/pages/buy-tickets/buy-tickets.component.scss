@@ -11,7 +11,7 @@
 
   img {
     width: 100%;
-    height: 300px;
+    height: auto;
     object-fit: cover;
   }
 }
@@ -31,7 +31,7 @@
 
   .banner-image {
     width: 100%;
-    height: 300px;
+    height: auto;
     object-fit: cover;
   }
 
@@ -214,35 +214,79 @@
 // ... existing styles ...
 
 .transaction-summary-container {
-  max-width: 1200px;
+  width: 95%;
   margin: 4rem auto;
   padding: 0 2rem;
 
   h2 {
-    color: #333;
-    margin-bottom: 2rem;
-    text-align: center;
-    font-size: 2rem;
+    color: black;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
   }
 
-  :host ::ng-deep {
+  ::ng-deep {
     .p-datatable {
       .p-datatable-header {
-        background: #f8f9fa;
-        border: 1px solid #dee2e6;
+        background: transparent;
+        border: none;
+        padding: 0 0 1rem 0;
       }
 
       .p-datatable-thead > tr > th {
         background: #f8f9fa;
-        color: #333;
-        font-weight: 600;
         padding: 1rem;
       }
 
-      .p-datatable-tbody > tr > td {
-        padding: 1rem;
-        vertical-align: middle;
+      .p-datatable-tbody > tr {
+        &:hover {
+          background: #f8f9fa;
+        }
+        > td {
+          padding: 1rem;
+        }
+      }
+
+      .p-paginator {
+        .p-paginator-current {
+          margin-left: auto;
+        }
       }
     }
+
+    .p-tag {
+      padding: 0.3rem 0.8rem;
+      font-size: 0.875rem;
+
+      &.p-tag-success {
+        background-color: #4caf503d;
+        color: #2e7d32;
+      }
+
+      &.p-tag-danger {
+        background-color: #ff00001f;
+        color: #d32f2f;
+      }
+
+      &.p-tag-info {
+        background-color: #0288d11f;
+        color: #0277bd;
+      }
+
+      &.p-tag-warning {
+        background-color: #ff980026;
+        color: #f57c00;
+      }
+
+      &.p-tag-secondary {
+        background-color: #7f19d21f;
+        color: #ab57ff;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .transaction-summary-container {
+    width: 100%;
   }
 }

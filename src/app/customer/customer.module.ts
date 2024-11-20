@@ -12,7 +12,7 @@ import { CustomerComponent } from './customer.component';
 import { CustomerDashboardComponent } from './pages/customer-dashboard/customer-dashboard/customer-dashboard.component';
 import { BuyTicketsComponent } from './pages/buy-tickets/buy-tickets.component';
 import { TableModule } from 'primeng/table';
-
+import { TagModule } from 'primeng/tag';
 @NgModule({
   declarations: [CustomerComponent, CustomerDashboardComponent, BuyTicketsComponent],
   imports: [
@@ -25,6 +25,7 @@ import { TableModule } from 'primeng/table';
     CustomerRoutingModule,
     ReactiveFormsModule,
     TableModule,
+    TagModule,
   ],
 })
 export class CustomerModule {}

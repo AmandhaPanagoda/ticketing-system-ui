@@ -1,5 +1,5 @@
 <div class="banner">
-  <img src="assets/event-banner-placeholder.jpg" alt="Event Banner" class="banner-image" />
+  <img src="assets/event-banner.png" alt="Event Banner" class="banner-image" />
   <h1>Buy Tickets</h1>
 </div>
 
@@ -59,20 +59,29 @@
 
 <div class="transaction-summary-container">
   <h2>Transaction Summary</h2>
-
   <p-table
     [value]="ticketSummaries"
     [paginator]="true"
     [rows]="10"
-    styleClass="p-datatable-striped"
-    [tableStyle]="{ 'min-width': '50rem' }"
+    [showCurrentPageReport]="true"
+    [rowHover]="true"
+    dataKey="ticketId"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [globalFilterFields]="['ticketId', 'vendorUsername']"
   >
     <ng-template pTemplate="header">
       <tr>
-        <th>Ticket ID</th>
-        <th>Created Date</th>
-        <th>Purchase Date</th>
-        <th>Vendor</th>
+        <th pSortableColumn="ticketId">Ticket ID <p-sortIcon field="ticketId"></p-sortIcon></th>
+        <th pSortableColumn="createdDateTime">
+          Created Date <p-sortIcon field="createdDateTime"></p-sortIcon>
+        </th>
+        <th pSortableColumn="purchasedDateTime">
+          Purchase Date <p-sortIcon field="purchasedDateTime"></p-sortIcon>
+        </th>
+        <th pSortableColumn="vendorUsername">
+          Vendor <p-sortIcon field="vendorUsername"></p-sortIcon>
+        </th>
+        <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-ticket>
@@ -83,6 +92,12 @@
           {{ ticket.purchasedDateTime ? (ticket.purchasedDateTime | date : 'medium') : 'N/A' }}
         </td>
         <td>{{ ticket.vendorUsername || 'Unavailable' }}</td>
+        <td>
+          <p-tag
+            [value]="ticket.purchasedDateTime ? 'PURCHASED' : 'PENDING'"
+            [severity]="ticket.purchasedDateTime ? 'success' : 'warning'"
+          ></p-tag>
+        </td>
       </tr>
     </ng-template>
     <ng-template pTemplate="emptymessage">
