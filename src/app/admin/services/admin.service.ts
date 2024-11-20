@@ -125,7 +125,24 @@ export class AdminService {
 
     return this.http.delete(`${this.baseUrl}/users/${userId}`, {
       headers,
-      responseType: 'text', // Specify that we expect a text response
+      responseType: 'text',
+    });
+  }
+
+  activateUser(userId: number): Observable<any> {
+    const token = UserStorageService.getToken();
+
+    if (!token) {
+      return throwError(() => new Error('User not authenticated'));
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.put(`${this.baseUrl}/users/${userId}/activate`, null, {
+      headers,
+      responseType: 'text',
     });
   }
 }

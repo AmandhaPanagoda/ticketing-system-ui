@@ -47,8 +47,14 @@ export class AdminWebsocketService implements OnDestroy {
     }
   }
 
+  clearLogs(): void {
+    this.logs = [];
+    this.transactionLogs.next([]);
+  }
+
   ngOnDestroy() {
     this.disconnect();
+    this.clearLogs();
   }
 
   private subscribeToTransactions(): void {

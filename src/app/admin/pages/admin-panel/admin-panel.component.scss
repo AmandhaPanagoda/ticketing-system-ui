@@ -343,6 +343,17 @@
   }
 }
 
+::ng-deep .activate-action.p-tag {
+  &:hover {
+    background-color: #2068092f;
+    cursor: pointer;
+  }
+
+  .pi-play-circle {
+    margin-right: 0.5rem;
+  }
+}
+
 ::ng-deep .p-tooltip {
   max-width: 300px;
 

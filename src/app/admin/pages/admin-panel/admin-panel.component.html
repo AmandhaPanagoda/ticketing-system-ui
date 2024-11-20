@@ -186,6 +186,15 @@
               <i class="pi pi-trash mr-2"></i>
               <span>Delete</span>
             </p-tag>
+            <p-tag
+              *ngIf="user.isDeleted"
+              severity="success"
+              (click)="activateUser(user.id)"
+              styleClass="activate-action"
+            >
+              <i class="pi pi-play-circle mr-2"></i>
+              <span>Activate</span>
+            </p-tag>
           </td>
         </tr>
       </ng-template>

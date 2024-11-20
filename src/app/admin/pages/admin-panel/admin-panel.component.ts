@@ -244,8 +244,31 @@ export class AdminPanelComponent implements OnInit {
               summary: 'Error',
               detail: error.error || 'Failed to delete user',
             });
+            this.loadUsers();
           },
         });
+      },
+    });
+  }
+
+  activateUser(userId: number) {
+    this.adminService.activateUser(userId).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'User activated successfully',
+        });
+        this.loadUsers();
+      },
+      error: error => {
+        console.error('Error activating user:', error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: error.error || 'Failed to activate user',
+        });
+        this.loadUsers();
       },
     });
   }
