@@ -3,33 +3,53 @@
     <canvas baseChart [data]="lineChartData" [options]="lineChartOptions" [type]="'line'"> </canvas>
   </div>
 
-  <h2>Transaction Logs</h2>
   <div class="log-container">
+    <h2>Transaction Logs</h2>
     <p-table
       [value]="logs"
       [paginator]="true"
       [rows]="10"
       [showCurrentPageReport]="true"
+      [rowHover]="true"
+      dataKey="ticketId"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [globalFilterFields]="['type', 'userId', 'username', 'userRole', 'status']"
     >
       <ng-template pTemplate="header">
         <tr>
-          <th>Type</th>
-          <th>Time</th>
-          <th>User</th>
-          <th>Role</th>
-          <th>Ticket ID</th>
-          <th>Status</th>
+          <th pSortableColumn="type">Type <p-sortIcon field="type"></p-sortIcon></th>
+          <th pSortableColumn="timestamp">Time <p-sortIcon field="timestamp"></p-sortIcon></th>
+          <th pSortableColumn="userId">User ID <p-sortIcon field="userId"></p-sortIcon></th>
+          <th pSortableColumn="username">Username <p-sortIcon field="username"></p-sortIcon></th>
+          <th pSortableColumn="userRole">Role <p-sortIcon field="userRole"></p-sortIcon></th>
+          <th pSortableColumn="ticketId">Ticket ID <p-sortIcon field="ticketId"></p-sortIcon></th>
+          <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-log>
         <tr>
-          <td>{{ log.type }}</td>
+          <td>
+            <p-tag
+              [value]="log.type"
+              [severity]="log.type === 'SALE' ? 'success' : 'secondary'"
+            ></p-tag>
+          </td>
           <td>{{ log.timestamp | date : 'medium' }}</td>
           <td>{{ log.userId }}</td>
-          <td>{{ log.userRole }}</td>
+          <td>{{ log.username }}</td>
+          <td>
+            <p-tag
+              [value]="log.userRole"
+              [severity]="log.userRole === 'VENDOR' ? 'warning' : 'info'"
+            ></p-tag>
+          </td>
           <td>{{ log.ticketId }}</td>
-          <td>{{ log.status }}</td>
+          <td>
+            <p-tag
+              [value]="log.status"
+              [severity]="log.status === 'SUCCESS' ? 'success' : 'danger'"
+            ></p-tag>
+          </td>
         </tr>
       </ng-template>
     </p-table>
