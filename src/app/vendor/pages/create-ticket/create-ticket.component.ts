@@ -20,6 +20,7 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
   loading = false;
   private subscription?: Subscription;
   ticketSummaries: any[] = [];
+  refreshing = false;
 
   constructor(
     private fb: FormBuilder,
@@ -77,9 +78,11 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
   }
 
   loadTicketSummaries() {
+    this.refreshing = true;
     this.vendorService.getTicketSummaries().subscribe({
       next: summaries => {
         this.ticketSummaries = summaries;
+        this.refreshing = false;
       },
       error: error => {
         this.messageService.add({
@@ -87,6 +90,7 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
           summary: 'Error',
           detail: 'Failed to load ticket summaries',
         });
+        this.refreshing = false;
       },
     });
   }

@@ -43,7 +43,19 @@
 </div>
 
 <div class="transaction-summary-container">
-  <h2>Transaction Summary</h2>
+  <div class="summary-header">
+    <h2>Transaction Summary</h2>
+    <button
+      pButton
+      type="button"
+      class="p-button-text refresh-button"
+      (click)="loadTicketSummaries()"
+      [loading]="refreshing"
+    >
+      <i class="pi pi-refresh" [attr.aria-hidden]="false"></i>
+      <span>Refresh</span>
+    </button>
+  </div>
   <p-table
     [value]="ticketSummaries"
     [paginator]="true"

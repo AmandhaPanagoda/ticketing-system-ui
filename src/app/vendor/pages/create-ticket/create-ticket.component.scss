@@ -193,10 +193,40 @@
   margin: 4rem auto;
   padding: 0 2rem;
 
-  h2 {
-    color: black;
+  .summary-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 1rem;
-    font-size: 1.5rem;
+
+    h2 {
+      margin-bottom: 0;
+    }
+
+    .refresh-button {
+      color: #133e87;
+      font-weight: 300;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      &:hover {
+        background: rgba(19, 62, 135, 0.04);
+      }
+
+      .pi {
+        font-size: 1rem;
+        display: inline-block;
+      }
+
+      &.p-button-text {
+        padding: 0.5rem 1rem;
+
+        &:focus {
+          box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px rgba(19, 62, 135, 0.2);
+        }
+      }
+    }
   }
 
   ::ng-deep {

@@ -218,10 +218,23 @@
   margin: 4rem auto;
   padding: 0 2rem;
 
-  h2 {
-    color: black;
+  .summary-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 1rem;
-    font-size: 1.5rem;
+
+    h2 {
+      margin-bottom: 0;
+    }
+
+    .refresh-button {
+      color: #133e87;
+
+      &:hover {
+        background: rgba(19, 62, 135, 0.04);
+      }
+    }
   }
 
   ::ng-deep {
