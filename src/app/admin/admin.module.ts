@@ -14,9 +14,10 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
+import { SystemLogComponent } from './pages/system-log/system-log.component';
 
 @NgModule({
-  declarations: [AdminComponent, AdminPanelComponent, TransactionLogComponent],
+  declarations: [AdminComponent, AdminPanelComponent, TransactionLogComponent, SystemLogComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
