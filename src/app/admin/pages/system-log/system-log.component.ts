@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { SystemLogService, SystemLog } from '../../services/system-log.service';
+import { SystemLogService } from '../../services/system-log.service';
 import { Subscription } from 'rxjs';
+import { SystemLog } from '../../models/system-log.model';
 
 @Component({
   selector: 'app-system-log',
@@ -28,7 +29,7 @@ export class SystemLogComponent implements OnInit, OnDestroy {
     this.subscription?.unsubscribe();
   }
 
-  getSeverityClass(level: string): 'success' | 'info' | 'warning' | 'danger' {
+  getSeverityClass(level: string): 'success' | 'info' | 'warning' | 'danger' | 'contrast' {
     switch (level.toLowerCase()) {
       case 'error':
         return 'danger';
@@ -37,7 +38,7 @@ export class SystemLogComponent implements OnInit, OnDestroy {
       case 'info':
         return 'info';
       case 'debug':
-        return 'success';
+        return 'contrast';
       default:
         return 'info';
     }

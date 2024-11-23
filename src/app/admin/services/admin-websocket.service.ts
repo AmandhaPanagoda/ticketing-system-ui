@@ -1,17 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Client } from '@stomp/stompjs';
 import { BehaviorSubject } from 'rxjs';
-
-export interface TransactionLog {
-  type: string;
-  timestamp: string;
-  userId: number;
-  username: string;
-  userRole: string;
-  ticketId: number;
-  amount: number;
-  status: string;
-}
+import { TransactionLog } from '../models/transaction-log.model';
 
 @Injectable({
   providedIn: 'root',

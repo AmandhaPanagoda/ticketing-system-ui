@@ -1,8 +1,10 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { AdminWebsocketService, TransactionLog } from '../../services/admin-websocket.service';
+import { AdminWebsocketService } from '../../services/admin-websocket.service';
 import { Subscription } from 'rxjs';
 import { Chart, ChartConfiguration } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import { TransactionLog } from '../../models/transaction-log.model';
+
 import {
   CategoryScale,
   LinearScale,

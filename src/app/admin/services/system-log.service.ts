@@ -1,15 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Client } from '@stomp/stompjs';
 import { BehaviorSubject } from 'rxjs';
-
-export interface SystemLog {
-  level: string;
-  source: string;
-  message: string;
-  userId: string;
-  action: string;
-  timestamp: string;
-}
+import { SystemLog } from '../models/system-log.model';
 
 @Injectable({
   providedIn: 'root',
