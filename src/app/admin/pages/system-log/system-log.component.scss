@@ -1,0 +1,65 @@
+.system-logs {
+  padding: 20px;
+  background-color: #f8f9fa;
+
+  h2 {
+    color: #333;
+    margin-bottom: 1rem;
+  }
+
+  .log-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+::ng-deep {
+  .p-datatable {
+    .p-datatable-header {
+      background: transparent;
+      border: none;
+      padding: 0 0 1rem 0;
+    }
+
+    .p-datatable-thead > tr > th {
+      background: #f8f9fa;
+      padding: 1rem;
+    }
+
+    .p-datatable-tbody > tr {
+      &:hover {
+        background: #f8f9fa;
+      }
+      > td {
+        padding: 1rem;
+      }
+    }
+  }
+
+  .p-tag {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.875rem;
+
+    &.p-tag-danger {
+      background-color: #ff00001f;
+      color: #d32f2f;
+    }
+
+    &.p-tag-warning {
+      background-color: #ff980026;
+      color: #f57c00;
+    }
+
+    &.p-tag-info {
+      background-color: #0288d11f;
+      color: #0277bd;
+    }
+
+    &.p-tag-secondary {
+      background-color: #7f19d21f;
+      color: #ab47bc;
+    }
+  }
+}
