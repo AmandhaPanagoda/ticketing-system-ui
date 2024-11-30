@@ -12,6 +12,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { StepsModule } from 'primeng/steps';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { TableModule } from 'primeng/table';
+import { CardModule } from 'primeng/card';
+import { TagModule } from 'primeng/tag';
+import { MessagesModule } from 'primeng/messages';
 
 @NgModule({
   declarations: [VendorComponent, VendorDashboardComponent, CreateTicketComponent],
@@ -25,6 +28,9 @@ import { TableModule } from 'primeng/table';
     StepsModule,
     InputNumberModule,
     TableModule,
+    CardModule,
+    TagModule,
+    MessagesModule,
   ],
 })
 export class VendorModule {}

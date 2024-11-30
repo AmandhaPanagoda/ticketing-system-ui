@@ -1,1 +1,194 @@
-<p>vendor-dashboard works!</p>
+<div class="vendor-documentation">
+  <!-- Page Title -->
+  <header class="doc-header">
+    <h1>📄 Vendor Guide: How the Ticketing System Works</h1>
+    <p class="doc-subtitle">
+      This document explains how vendors can add tickets, how the system works, why it was designed
+      this way, and what could be improved in the future. I have kept things simple but powerful,
+      and here’s all you need to know.
+    </p>
+  </header>
+
+  <!-- Vendor Process -->
+  <section>
+    <h2>🔄 Vendor Process</h2>
+    <div>
+      <h3>Step 1: View the Ticket Pool</h3>
+      <p>
+        On your vendor screen, you’ll see the <strong>current number of tickets</strong> in the pool
+        displayed in real-time. Powered by WebSockets, updates occur instantly every time tickets
+        are added or purchased.
+      </p>
+      <p class="tip">
+        💡 <strong>Tip:</strong> Live tracking ensures you know how many tickets you can still add.
+      </p>
+    </div>
+    <div>
+      <h3>Step 2: Add Tickets</h3>
+      <p>
+        Below the ticket pool display, there’s an input field where you can enter the number of
+        tickets to add. The system checks:
+      </p>
+      <ul>
+        <li>
+          If the total tickets in the pool plus your new tickets exceed the maximum capacity set by
+          the admin.
+        </li>
+        <li>If the system is active (only the admin can start or stop it).</li>
+      </ul>
+      <p class="alert">
+        ⚠️ Invalid requests (e.g., too many tickets or system off) will be rejected.
+      </p>
+    </div>
+    <div>
+      <h3>Step 3: See What Happens Behind the Scenes</h3>
+      <p>Once you submit a valid request:</p>
+      <ul>
+        <li>
+          It goes through semaphore-based concurrency processing. This means even if many vendors
+          are adding tickets at the same time, the system ensures everything happens smoothly
+          without conflicts.
+        </li>
+        <li>
+          Tickets are added if space is available, and the updated pool count is visible to everyone
+          instantly.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Viewing Sales History -->
+  <section>
+    <h2>📜 Viewing Sales History</h2>
+    <p>A sales history table is provided below the release button to track:</p>
+    <ul>
+      <li>All tickets you've added.</li>
+      <li>Whether tickets are purchased or unsold.</li>
+      <li>Who purchased them (customer info like ID/name).</li>
+      <li>Timestamp of each sale.</li>
+    </ul>
+    <p>Features include:</p>
+    <ul>
+      <li><strong>Filtering:</strong> Filter tickets by purchase status.</li>
+      <li><strong>Pagination:</strong> Navigate long histories easily.</li>
+    </ul>
+  </section>
+
+  <!-- Important Things to Know -->
+  <section>
+    <h2>⚠️ Important Things to Know</h2>
+    <p><strong>System Limitations:</strong></p>
+    <ul>
+      <li>
+        Supports a single event only.
+        <ul>
+          <li>Right now, all vendors add tickets for the same event.</li>
+          <li>
+            I imagined of this as a concert venue where multiple ticket sellers (like
+            <a href="https://www.ticketmaster.com" target="_blank">Ticketmaster</a> and partners)
+            sell tickets for one big concert.
+          </li>
+          <li>
+            <b>WHY?</b> Because I wanted to keep the system simple while focusing on things like
+            multi-threading and ticket pooling, as required.
+          </li>
+        </ul>
+      </li>
+      <li>
+        Ticket properties (e.g., pricing, types) are fixed.
+        <ul>
+          <li>Tickets don’t have customizable features like pricing or types.</li>
+          <li>This is intentional to keep the focus on core functionality.</li>
+        </ul>
+      </li>
+      <li>
+        Admin Control
+        <ul>
+          <li>Vendors can only add tickets when the admin has started the system.</li>
+          <li>If the system is inactive, ticket addition is blocked.</li>
+        </ul>
+      </li>
+      <li>
+        Program Reset Behavior
+        <ul>
+          <li>When the admin stops the system, the ticket pool resets.</li>
+          <li>
+            Your sales history (including unsold tickets) will be saved in the Database, but ticket
+            pool will be gone if the program is stopped.
+          </li>
+          <li>
+            <b>WHY?</b> This design showcases object-oriented programming principles, where data
+            resets for simplicity.
+          </li>
+        </ul>
+      </li>
+      <p class="info">
+        ℹ️ This section is a bit tricky. The vendor will see the old tickets they sold/unsold in the
+        table however that number will not reflect in the pool monitor.<br />
+        This is because the table shows all data not just current status.<br />
+        I do not load the unsold tickets back to the queue when the program stops, this is to make
+        it less confusing.
+      </p>
+      <p class="alert">
+        ⚠️ Program stopping behavior: When the java program is stopped (i.e. backend is completely
+        down). <br />
+        System Status: When admin stops/ starts the pool. <br />
+        <b>DO NOT CONFUSE THE TWO.</b> One is program stopping, other is just stopping the pool.
+      </p>
+    </ul>
+  </section>
+
+  <!--Why I designed it this way-->
+  <section>
+    <h2>🤔 Why I designed it this way</h2>
+    <p>
+      I had to focus on multi-threading and a ticket pool as part of the coursework.<br />
+      Allowing multiple events would complicate the system unnecessarily, so I stuck to one event
+      where vendors add tickets in bulk. <br />The system is designed for speed and real-time
+      updates:
+    </p>
+    <ul>
+      <li>
+        Vendors and customers interact with the same ticket pool using a first-come, first-serve
+        basis.
+      </li>
+      <li>WebSockets ensure everyone sees updates instantly.</li>
+      <li>
+        Thread-based concurrency ensures all ticket additions and purchases happen smoothly without
+        clashes.
+      </li>
+    </ul>
+  </section>
+
+  <!-- Future Improvements -->
+  <section>
+    <h2>🚀 Future Improvements</h2>
+    <ul>
+      <li>
+        <strong>Multi-Event Support:</strong> Let vendors add tickets for different events, each
+        with its own pool and properties.
+      </li>
+      <li>
+        <strong>Dynamic Pricing:</strong> Add options for flexible pricing based on demand or time.
+      </li>
+      <li>
+        <strong>Vendor Customization:</strong> Let vendors customize profiles and add personal
+        branding.
+      </li>
+      <li>
+        <strong>Advanced Analytics:</strong> Include a dashboard for vendors to track sales trends,
+        performance metrics, and customer insights. (admin have something similar at the moment 😉)
+      </li>
+    </ul>
+  </section>
+
+  <!-- Conclusion -->
+  <section>
+    <h2>✅ Conclusion</h2>
+    <p>
+      This system is designed for simplicity and efficiency, showcasing multi-threading, real-time
+      updates, and admin-controlled operations. With enhancements, it could become a versatile
+      platform for real-world ticketing systems.
+    </p>
+  </section>
+</div>

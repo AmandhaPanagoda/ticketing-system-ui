@@ -1,0 +1,71 @@
+.vendor-documentation {
+  padding: 20px;
+  color: #333;
+
+  .doc-header {
+    text-align: center;
+
+    h1 {
+      font-size: 2rem;
+      color: #007ad9;
+    }
+
+    .doc-subtitle {
+      font-size: 1rem;
+      margin: 40px 20px 40px 20px;
+      color: #555;
+    }
+  }
+
+  section {
+    margin: 40px 20px 40px 20px;
+
+    h2 {
+      color: #444;
+      border-bottom: 2px solid #007ad9;
+      padding-bottom: 5px;
+      margin-bottom: 10px;
+    }
+
+    h3 {
+      color: #555;
+      margin-top: 15px 0 15px 0;
+    }
+
+    .tip {
+      background-color: #f0f9ff;
+      border-left: 4px solid #007ad9;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    .alert {
+      background-color: #fff4e5;
+      border-left: 4px solid #ff9800;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    .info {
+      background-color: #e5f9ff;
+      border-left: 4px solid #41d900;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    ul {
+      margin: 10px 0;
+      padding-left: 20px;
+
+      li {
+        margin: 5px 0;
+      }
+    }
+  }
+}
