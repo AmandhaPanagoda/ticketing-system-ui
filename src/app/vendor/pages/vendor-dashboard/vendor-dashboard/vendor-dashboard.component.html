@@ -34,7 +34,7 @@
           If the total tickets in the pool plus your new tickets exceed the maximum capacity set by
           the admin.
         </li>
-        <li>If the system is active (only the admin can start or stop it).</li>
+        <li>If the ticket pool is active (only the admin can start or stop it).</li>
       </ul>
       <p class="alert">
         ⚠️ Invalid requests (e.g., too many tickets or system off) will be rejected.
@@ -131,8 +131,9 @@
       </p>
       <p class="alert">
         ⚠️ Program stopping behavior: When the java program is stopped (i.e. backend is completely
-        down). <br />
-        System Status: When admin stops/ starts the pool. <br />
+        down). Once this is restarted the pool will be reset.<br />
+        System Status: When admin stops/ starts the pool. This can be restarted and won't affect the
+        flow. <br />
         <b>DO NOT CONFUSE THE TWO.</b> One is program stopping, other is just stopping the pool.
       </p>
     </ul>
@@ -140,7 +141,7 @@
 
   <!--Why I designed it this way-->
   <section>
-    <h2>🤔 Why I designed it this way</h2>
+    <h2>🤔 Why I Designed It This Way</h2>
     <p>
       I had to focus on multi-threading and a ticket pool as part of the coursework.<br />
       Allowing multiple events would complicate the system unnecessarily, so I stuck to one event

@@ -1,35 +1,44 @@
 .vendor-documentation {
   padding: 20px;
-  color: #333;
-
+  background: -webkit-linear-gradient(to right, #4ecdc4, #556270);
+  background: linear-gradient(to right, #4ecdc4, #556270);
   .doc-header {
-    text-align: center;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 
     h1 {
-      font-size: 2rem;
-      color: #007ad9;
+      font-size: 1.8rem;
+      color: #12afa5;
+      margin-top: 10px;
     }
 
     .doc-subtitle {
       font-size: 1rem;
-      margin: 40px 20px 40px 20px;
+      margin: 20px 0;
       color: #555;
     }
   }
 
   section {
-    margin: 40px 20px 40px 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
 
     h2 {
-      color: #444;
-      border-bottom: 2px solid #007ad9;
+      color: #4ecdc4;
+      border-bottom: 2px solid #4ecdc4;
       padding-bottom: 5px;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
     }
 
     h3 {
       color: #555;
-      margin-top: 15px 0 15px 0;
+      margin: 30px 0;
     }
 
     .tip {
@@ -42,8 +51,8 @@
     }
 
     .alert {
-      background-color: #fff4e5;
-      border-left: 4px solid #ff9800;
+      background-color: #ff0d001c;
+      border-left: 4px solid #ff0d00;
       padding: 10px;
       margin: 10px 0;
       font-size: 0.9rem;
@@ -51,8 +60,8 @@
     }
 
     .info {
-      background-color: #e5f9ff;
-      border-left: 4px solid #41d900;
+      background-color: #00ff1e26;
+      border-left: 4px solid #00ff1e;
       padding: 10px;
       margin: 10px 0;
       font-size: 0.9rem;
