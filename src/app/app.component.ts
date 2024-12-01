@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'ticketing-system-ui';
+  title = 'nex-ticketing';
 
   isCustomerLoggedIn: boolean = UserStorageService.isCustomerLoggedIn();
   isVendorLoggedIn: boolean = UserStorageService.isVendorLoggedIn();
