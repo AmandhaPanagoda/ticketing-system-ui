@@ -1,1 +1,173 @@
-<p>customer-dashboard works!</p>
+<div class="customer-documentation">
+  <!-- Page Title -->
+  <header class="doc-header">
+    <h1>📄 Customer Guide: How the Ticketing System Works</h1>
+    <p class="doc-subtitle">
+      This guide will walk you through how to purchase tickets, how the system operates, and areas I
+      plan to improve. I've made it simple yet efficient—read on to learn more.
+    </p>
+  </header>
+
+  <!-- Customer Process -->
+  <section>
+    <h2>🔄 Customer Process</h2>
+    <div>
+      <h3>Step 1: View the Ticket Pool</h3>
+      <p>
+        On your <b>Buy Tickets</b> screen, you’ll see the
+        <strong>current number of tickets</strong> available in the pool displayed in real-time.
+        This is powered by WebSockets, so the pool count updates instantly whenever tickets are
+        added or purchased.
+      </p>
+      <p class="tip">
+        💡 <strong>Tip:</strong> The live display ensures you know exactly how many tickets you can
+        purchase.
+      </p>
+    </div>
+    <div>
+      <h3>Step 2: Purchase Tickets</h3>
+      <p>
+        Below the ticket pool display, there’s an input field where you can enter the number of
+        tickets you wish to purchase. The system checks to ensure:
+      </p>
+      <ul>
+        <li>You are not requesting more tickets than are currently available in the pool.</li>
+        <li>The ticket pool is active (only the admin can start or stop it).</li>
+      </ul>
+      <p class="alert">
+        ⚠️ Invalid requests (e.g., requesting too many tickets or if the system is inactive) will be
+        rejected.
+      </p>
+    </div>
+    <div>
+      <h3>Step 3: See What Happens Behind the Scenes</h3>
+      <p>Once you submit a valid purchase request:</p>
+      <ul>
+        <li>
+          Tickets are allocated to you on a <strong>First-In-First-Out (FIFO)</strong> basis from
+          the ticket queue.
+        </li>
+        <li>
+          The ticket pool count is updated immediately, visible to all vendors and customers in
+          real-time.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Viewing Purchase History -->
+  <section>
+    <h2>📜 Viewing Purchase History</h2>
+    <p>A purchase history table is provided below the purchase input to track:</p>
+    <ul>
+      <li>All tickets you’ve purchased.</li>
+      <li>The vendor who sold each ticket.</li>
+      <li>Timestamp of each purchase.</li>
+    </ul>
+    <p>Features include:</p>
+    <ul>
+      <li><strong>Filtering:</strong> Filter tickets by vendor or timestamp.</li>
+      <li><strong>Pagination:</strong> Easily navigate through long purchase histories.</li>
+    </ul>
+  </section>
+
+  <!-- Important Things to Know -->
+  <section>
+    <h2>⚠️ Important Things to Know</h2>
+    <p><strong>System Limitations:</strong></p>
+    <ul>
+      <li>
+        Supports a single event only.
+        <ul>
+          <li>All customers purchase tickets for the same event.</li>
+          <li>
+            <b>WHY?</b> This approach simplifies the system and focuses on core functionality, such
+            as multi-threading and real-time updates, as required by the project.
+          </li>
+        </ul>
+      </li>
+      <li>
+        Fixed Ticket Properties
+        <ul>
+          <li>Tickets are uniform (no pricing or type variations).</li>
+        </ul>
+      </li>
+      <li>
+        Program Reset Behavior
+        <ul>
+          <li>When the system is down (server is down), the ticket pool resets.</li>
+          <li>
+            Your purchase history will be saved in the database, but the pool resets when the
+            program restarts.
+          </li>
+          <p class="info">
+            ℹ️ This section is a bit tricky. The customer will see the old tickets they bought in
+            the table.<br />
+            This is because the table shows all data not just the tickets bought in the current
+            session.<br />
+            I do not load the unsold tickets back to the queue when the program stops, this is to
+            make it less confusing, but this also means customers can't buy the unsold tickets which
+            were not sold in the previous session.
+          </p>
+          <p class="alert">
+            ⚠️ Program stopping behavior: When the java program is stopped (i.e. backend is
+            completely down). Once this is restarted the pool will be reset. <br />
+            System Status: When admin stops/ starts the pool. This can be restarted and won't affect
+            the flow. <br />
+            <b>DO NOT CONFUSE THE TWO.</b> One is program stopping, other is just stopping the pool.
+          </p>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <!--Why We Designed It This Way-->
+  <section>
+    <h2>🤔 Why I Designed It This Way</h2>
+    <p>
+      This system was built with a focus on core project requirements, such as multi-threading,
+      real-time updates, and a centralized ticket pool. Here’s why:
+    </p>
+    <ul>
+      <li>
+        A single event simplifies interactions between vendors and customers, focusing on a shared
+        ticket pool.
+      </li>
+      <li>Real-time updates ensure all users see the latest status without delays.</li>
+      <li>Thread-safe operations prevent conflicts during ticket additions and purchases.</li>
+    </ul>
+  </section>
+
+  <!-- Future Improvements -->
+  <section>
+    <h2>🚀 Future Improvements</h2>
+    <ul>
+      <li>
+        <strong>Multi-Event Support:</strong> Allow customers to buy tickets for different events.
+      </li>
+      <li><strong>Dynamic Pricing:</strong> Enable pricing flexibility based on demand or time.</li>
+      <li>
+        <strong>Customer Profiles:</strong> Let customers create profiles to track their purchase
+        history over multiple sessions.
+      </li>
+      <li>
+        <strong>Persistent Data:</strong> Save purchase histories across program restarts for better
+        tracking <i>(right now, it's saved in the database).</i>
+      </li>
+      <li>
+        <strong>Enhanced Analytics:</strong> Provide customers with insights, such as purchase
+        trends and recommendations.
+      </li>
+    </ul>
+  </section>
+
+  <!-- Conclusion -->
+  <section>
+    <h2>✅ Conclusion</h2>
+    <p>
+      This system is designed to provide customers with a seamless ticket purchasing experience,
+      emphasizing speed, simplicity, and real-time updates. With planned improvements, it could
+      evolve into a fully-featured ticketing platform for real-world scenarios.
+    </p>
+  </section>
+</div>
