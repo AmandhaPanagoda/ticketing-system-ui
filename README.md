@@ -1,27 +1,132 @@
-# TicketingSystemUi
+# NEX Ticketing System
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.8.
+A comprehensive ticketing system with two implementations: CLI and Web API with Angular frontend. The system demonstrates concurrent ticket management with real-time updates using WebSockets and thread-safe operations.
 
-## Development server
+## 🎯 Project Overview
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+This project showcases a ticketing system implemented in three different ways:
 
-## Code scaffolding
+1. **CLI Version**: Command-line interface implementation
+2. **Web Version**: Spring Boot backend + Angular frontend
+3. **Java GUI Version**: Same CLI thing with Swing UI
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Each version demonstrates the same core functionality with different interfaces.
 
-## Build
+## 🚀 Core Features
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Multi-threaded ticket pool management
+- Real-time updates using WebSockets (Web version)
+- Role-based access (Admin, Vendor, Customer)
+- Concurrent ticket operations
+- Transaction history tracking
+- System monitoring and configuration
 
-## Running unit tests
+## 📋 Documentation & Resources
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### API Documentation
 
-## Running end-to-end tests
+- [Postman Workspace](https://app.getpostman.com/join-team?invite_code=b41725094bd4de203c09424ac4d93709&target_code=4b6069844a757617ae52d15ece864d6f)
+- [API Documentation](https://drive.google.com/drive/folders/1-8NeqMdohC05IWJifXioNe7vMjHgWZIW?usp=drive_link)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Project Repositories
 
-## Further help
+- [CLI Project](https://github.com/AmandhaPanagoda/cli-ticketing-system)
+- [Frontend Project](https://github.com/AmandhaPanagoda/ticketing-system-ui)
+- [Backend Project](https://github.com/AmandhaPanagoda/ticketing-system)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Technical Documentation
+
+- [Sequence Diagram](https://drive.google.com/drive/folders/1-8NeqMdohC05IWJifXioNe7vMjHgWZIW?usp=drive_link)
+- [Class Diagram](https://drive.google.com/drive/folders/1-8NeqMdohC05IWJifXioNe7vMjHgWZIW?usp=drive_link)
+
+## 🛠️ Technology Stack
+
+### Backend (Spring Boot)
+
+- Java 19
+- Spring Boot 3.3.4
+- Spring Security
+- Spring WebSocket
+- MySQL
+- JPA/Hibernate
+
+### Frontend (Angular)
+
+- Angular 17.3.0
+- PrimeNG UI Components
+- WebSocket (SockJS + STOMP)
+- Chart.js
+
+### CLI Version
+
+- Pure Java
+- Console-based UI
+
+## 🚦 Getting Started
+
+### Prerequisites
+
+- Java JDK 19 or higher
+- Node.js 18 or higher
+- MySQL 8.0
+- Maven
+- Angular CLI
+
+### Backend Setup
+
+1. Clone the backend repository
+2. Configure MySQL database (application.properties)
+3. Run using Maven:
+   ```bash
+   mvn spring-boot:run
+   ```
+
+### Frontend Setup
+
+1. Clone the frontend repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start development server:
+   ```bash
+   ng serve
+   ```
+
+### CLI Version Setup
+
+1. Clone the CLI repository
+2. Compile and run using Java:
+   ```bash
+   javac TicketingSystemCLI.java
+   java TicketingSystemCLI
+   ```
+
+## 🎮 Usage
+
+### Web Version
+
+- Access the application at `http://localhost:4200`
+- Login as:
+  - Admin: Configure system and monitor operations
+  - Vendor: Add tickets to the pool
+  - Customer: Purchase tickets from the pool
+
+### CLI Version
+
+- Follow on-screen instructions
+- Use inputs to navigate menus
+- View real-time ticket pool status
+
+## 🔄 System Architecture
+
+The system uses a thread-safe ticket pool implementation with:
+
+- Semaphore-based concurrency control
+- FIFO ticket allocation
+- Real-time WebSocket updates (Web version)
+- Transaction logging and monitoring
+
+## 🤝 Contributing
+
+Unfortunately, you won't be able to contribute to this. This is just a coursework🥲. But feel free to submit issues and enhancement requests, I will ignore them.
