@@ -1,15 +1,30 @@
 <div class="system-logs">
   <div class="log-container">
     <h2>System Logs</h2>
+
+    <div class="table-header">
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input
+          pInputText
+          type="text"
+          #filter
+          (input)="dt.filterGlobal(filter.value, 'contains')"
+          placeholder="Search Logs"
+        />
+      </span>
+    </div>
+
     <p-table
+      #dt
       [value]="logs"
       [paginator]="true"
       [rows]="10"
       [showCurrentPageReport]="true"
       [rowHover]="true"
       dataKey="timestamp"
+      [globalFilterFields]="['userId', 'message', 'action', 'source', 'level']"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-      [globalFilterFields]="['level', 'source', 'message', 'userId', 'action']"
     >
       <ng-template pTemplate="header">
         <tr>

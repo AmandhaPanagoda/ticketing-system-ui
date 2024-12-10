@@ -64,3 +64,34 @@
     }
   }
 }
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  .p-input-icon-left {
+    width: 100%;
+    max-width: 300px;
+
+    i {
+      top: 50%;
+      transform: translateY(-50%);
+      color: #6c757d;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.5rem 0.5rem 0.5rem 2rem;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+
+      &:focus {
+        outline: none;
+        border-color: #2196f3;
+        box-shadow: 0 0 0 0.2rem rgba(33, 150, 243, 0.25);
+      }
+    }
+  }
+}
