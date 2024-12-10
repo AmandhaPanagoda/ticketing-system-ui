@@ -72,10 +72,11 @@ export class SignupCustomerComponent implements OnInit {
         this.router.navigate(['/login']);
       },
       error: error => {
+        const errorMessage = error.error || 'Registration failed. Please try again.';
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'Registration failed. Please try again.',
+          detail: errorMessage,
           life: 3000,
         });
         console.error('Registration error:', error);
