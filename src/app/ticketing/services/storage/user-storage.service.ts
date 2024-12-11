@@ -10,21 +10,21 @@ export class UserStorageService {
   constructor() {}
 
   public saveToken(token: string): void {
-    window.localStorage.removeItem(TOKEN);
-    window.localStorage.setItem(TOKEN, token);
+    window.sessionStorage.removeItem(TOKEN);
+    window.sessionStorage.setItem(TOKEN, token);
   }
 
   static getToken(): string | null {
-    return localStorage.getItem(TOKEN);
+    return sessionStorage.getItem(TOKEN);
   }
 
   public saveUser(user: any): void {
-    window.localStorage.removeItem(USER);
-    window.localStorage.setItem(USER, JSON.stringify(user));
+    window.sessionStorage.removeItem(USER);
+    window.sessionStorage.setItem(USER, JSON.stringify(user));
   }
 
   static getUser(): any {
-    const userStr = localStorage.getItem(USER);
+    const userStr = sessionStorage.getItem(USER);
     return userStr ? JSON.parse(userStr) : null;
   }
 
@@ -69,7 +69,7 @@ export class UserStorageService {
   }
 
   static signOut(): void {
-    window.localStorage.removeItem(USER);
-    window.localStorage.removeItem(TOKEN);
+    window.sessionStorage.removeItem(USER);
+    window.sessionStorage.removeItem(TOKEN);
   }
 }
